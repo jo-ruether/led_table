@@ -42,7 +42,7 @@ class Menu(Game):
         self.running = False
 
         # Return to menu and draw icon
-        self.games[self.current_selection].draw_icon(output)
+        self.games[self.current_selection].draw_icon(self.output)
 
         return True
 

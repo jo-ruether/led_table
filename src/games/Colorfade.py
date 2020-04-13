@@ -24,6 +24,8 @@ class Colorfade(Game):
         while True:
             # Check for termination signal (any command)
             if self.input_q.qsize() > 0:
+                # Get element from queue so that command isn't processed twice
+                cmd = self.input_q.get()
                 return True
 
             t = time()
