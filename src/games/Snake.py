@@ -3,6 +3,7 @@ from src.games.Game import Game
 from random import randint
 from time import sleep
 
+
 class Snake(Game):
     # Define snake, fruit and background color
     snake_color = (5, 255, 5)

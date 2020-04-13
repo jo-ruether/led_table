@@ -1,4 +1,4 @@
-from src.games.snake import Snake
+from src.games.Snake import Snake
 from src.games.Game import Game
 from src.games.Colorfade import Colorfade
 
