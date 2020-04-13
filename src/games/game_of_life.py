@@ -60,7 +60,7 @@ class World():
 
 
 	def print_world(self):
-		self.output.showRGB(self.pixelMatrix)
+		self.output.show(self.pixelMatrix)
 
 	def start(self):
 		if self.duration == -1:

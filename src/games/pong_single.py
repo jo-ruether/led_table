@@ -56,7 +56,7 @@ class Pong():
             return False    
         
     def hit_wall(self): 
-        hasHitWall = Falses
+        hasHitWall = False
         if self.ball in self.neutral_wall_top or self.ball in self.neutral_wall_bottom:
             self.ball_direction = (-self.ball_direction[0], self.ball_direction[1])
             hasHitWall = True
@@ -95,7 +95,7 @@ class Pong():
     def print_world(self):
         """ Prints the world matrix to the table
         """
-        self.output.showRGB()
+        self.output.show()
  
     def clean_world(self):
         """ Fill the whole matrix with zeros

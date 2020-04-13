@@ -92,4 +92,4 @@ class Text:
         #             self.pixelMatrix[idx2][idx1] = (0,0,0)
 
     def show(self):
-        self.output.showRGB(self.pixelMatrix)
+        self.output.show(self.pixelMatrix)
