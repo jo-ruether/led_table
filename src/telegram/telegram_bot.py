@@ -1,28 +1,15 @@
-from telegram.ext import Updater, InlineQueryHandler, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, InlineQueryHandler, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import InlineKeyboardButton as IKB
-from telegram import ReplyKeyboardMarkup
+from telegram import InlineKeyboardMarkup, ReplyKeyboardMarkup
 
-TOKEN = '873643803:AAH-u1t5m0hc_EvKeCzi7zPYbjQneDUPkIM'
-
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# This program is dedicated to the public domain under the CC0 license.
-#
-# THIS EXAMPLE HAS BEEN UPDATED TO WORK WITH THE BETA VERSION 12 OF PYTHON-TELEGRAM-BOT.
-# If you're still using version 11.1.0, please see the examples at
-# https://github.com/python-telegram-bot/python-telegram-bot/tree/v11.1.0/examples
-
-"""
-Basic example for a bot that uses inline keyboards.
-"""
 import logging
 
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
+TOKEN = '873643803:AAH-u1t5m0hc_EvKeCzi7zPYbjQneDUPkIM'
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 class TelegramBot():
     def __init__(self, input_q):
@@ -30,7 +17,7 @@ class TelegramBot():
 
     def start(self, update, context):
         update.message.reply_text('Hallo')
-        reply_keyboard = [['left', 'right']]
+        reply_keyboard = [['action'], ['left', 'right']]
         reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False)
         update.message.reply_text('Please choose:', reply_markup=reply_markup)  
             
@@ -60,7 +47,3 @@ class TelegramBot():
 
         # Start the Bot
         updater.start_polling()
-
-        # Run the bot until the user presses Ctrl-C or the process receives SIGINT,
-        # SIGTERM or SIGABRT
-        # updater.idle()
