@@ -1,6 +1,6 @@
-from src.games.Snake import Snake
-from src.games.Game import Game
-from src.games.Colorfade import Colorfade
+from table.games.Snake import Snake
+from table.games.Game import Game
+from table.games.Colorfade import Colorfade
 
 
 class Menu(Game):

@@ -1,10 +1,9 @@
-from time import sleep
 from threading import Thread
 import queue
 
-from src.telegram.telegram_bot import TelegramBot
-from src.games.Menu import Menu
-from src.utils.output import Output
+from table.telegram_bot import TelegramBot
+from table.games.Menu import Menu
+from table.utils.output import Output
 
 
 def application(input_q, output):

@@ -1,5 +1,5 @@
 import time
-from src.games.Game import Game
+from table.games.Game import Game
 from random import randint
 from time import sleep
 

@@ -1,4 +1,4 @@
-from src.games.Game import Game
+from table.games.Game import Game
 from time import time
 from math import sqrt
 
