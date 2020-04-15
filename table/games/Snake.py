@@ -11,8 +11,8 @@ class Snake(Game):
     head_color = (10, 255, 255)
     garden_color = (0, 0, 0)
 
-    def __init__(self, input_q, output):
-        super().__init__(input_q, output)
+    def __init__(self, postman, output):
+        super().__init__(postman, output)
 
         # Initialize directions
         self.compass = ["north", "east", "south", "west"]
@@ -91,14 +91,13 @@ class Snake(Game):
     def update_direction(self):
         """ Reacts to commands in the input queue and updates the direction accordingly
         """
-        # Check for existing input
-        if self.input_q.qsize() > 0:
-            input = self.input_q.get()
-            self.input_q.task_done()
+        post = self.postman.request('UserInput')
+        if post:
+            cmd = post['message']
             # Change snake's direction according to input
-            if input == 'right':
+            if cmd == 'right':
                 self.direction = (self.direction - 1) % 4
-            elif input == 'left':
+            elif cmd == 'left':
                 self.direction = (self.direction + 1) % 4
 
     def game_over_animation(self):

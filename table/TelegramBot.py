@@ -1,5 +1,4 @@
 from telegram.ext import Updater, InlineQueryHandler, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
-from telegram import InlineKeyboardButton as IKB
 from telegram import InlineKeyboardMarkup, ReplyKeyboardMarkup
 
 import logging
@@ -12,8 +11,8 @@ logger = logging.getLogger(__name__)
 
 
 class TelegramBot():
-    def __init__(self, input_q):
-        self.input_q = input_q
+    def __init__(self, postman):
+        self.postman = postman
 
     def start(self, update, context):
         update.message.reply_text('Hallo')
@@ -23,7 +22,7 @@ class TelegramBot():
             
     def button(self, update, context):
         command = update.message.text
-        self.input_q.put_nowait(command)    
+        self.postman.send('UserInput', command)
         update.message.reply_text(text="Selected option: {}".format(command))
 
     def help(self, update, context):

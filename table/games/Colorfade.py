@@ -22,10 +22,9 @@ class Colorfade(Game):
         max_distance = 7.78
 
         while True:
-            # Check for termination signal (any command)
-            if self.input_q.qsize() > 0:
-                # Get element from queue so that command isn't processed twice
-                cmd = self.input_q.get()
+            post = self.postman.request('UserInput')
+            if post:
+                # Exit when there is any input during ColorFade
                 return True
 
             t = time()

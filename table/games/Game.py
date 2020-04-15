@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 
 
 class Game(ABC):
-    def __init__(self, input_q, output):
-        self.input_q = input_q
+    def __init__(self, postman, output):
+        self.postman = postman
         self.output = output
 
     @abstractmethod

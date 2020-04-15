@@ -4,16 +4,15 @@ from table.games.Colorfade import Colorfade
 
 
 class Menu(Game):
-    def __init__(self, input_q, output):
-        super().__init__(input_q, output)
-        self.input_q = input_q
+    def __init__(self, postman, output):
+        super().__init__(postman, output)
 
         # Track if a gaming is currently running
-        self.running = False;
+        self.running = False
 
         # List of available games
         self.current_selection = 0
-        self.games = [Snake(input_q, output), Colorfade(input_q, output)]
+        self.games = [Snake(postman, output), Colorfade(postman, output)]
 
     def move_left(self):
         self.current_selection -= 1
@@ -47,8 +46,9 @@ class Menu(Game):
         return True
 
     def read_input(self):
-        if self.input_q.qsize() > 0:
-            cmd = self.input_q.get()
+        post = self.postman.request('UserInput')
+        if post:
+            cmd = post['message']
 
             if cmd == "left":
                 self.move_left()

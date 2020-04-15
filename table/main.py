@@ -1,15 +1,16 @@
 from threading import Thread
 import queue
 
-from table.telegram_bot import TelegramBot
+from table.TelegramBot import TelegramBot
 from table.games.Menu import Menu
-from table.utils.output import Output
+from table.Output import Output
+from table.Postman import Postman
 
 
-def application(input_q, output):
+def application(postman, output):
     # start() function returns if the game is over
     # Then return from the application so that the thread can terminate 
-    menu = Menu(input_q, output)
+    menu = Menu(postman, output)
     menu.start()
 
     output.emptyMatrix()
@@ -53,25 +54,21 @@ def application(input_q, output):
 #         return False
 
 
-def telegram_inputs(input_q):
-    bot = TelegramBot(input_q)
+def telegram(postman):
+    bot = TelegramBot(postman)
     bot.run()
 
 
-# Create output class to pass to all threads
+# Create postman for thread communication
+postman = Postman(['Output', 'UserInput'])
+
+# Create output for matrix rendering
 output = Output()
 
-input_q = queue.Queue(maxsize=3)
-input_q.put('Running')
-
-# This is for hardware switches only
-#input_thread = Thread(target=inputs, args=(input_q,), daemon=True)
-#input_thread.start()
-
-telegram_thread = Thread(target=telegram_inputs, args=(input_q,), daemon=True)
+telegram_thread = Thread(target=telegram, args=(postman,), daemon=True)
 telegram_thread.start()
 
-app_thread = Thread(target=application, args=(input_q, output))
+app_thread = Thread(target=application, args=(postman, output))
 app_thread.start()
 
 app_thread.join()
