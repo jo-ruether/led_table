@@ -60,7 +60,7 @@ def telegram(postman):
 
 
 # Create postman for thread communication
-postman = Postman(['Output', 'UserInput'])
+postman = Postman(['Output', 'UserInput', 'Settings', 'UserFeedback'])
 
 # Create output for matrix rendering
 output = Output()
