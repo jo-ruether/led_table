@@ -4,9 +4,9 @@ from telegram import InlineKeyboardMarkup, ReplyKeyboardMarkup
 import logging
 
 # Johannes
-# TOKEN = '873643803:AAH-u1t5m0hc_EvKeCzi7zPYbjQneDUPkIM'
+TOKEN = '873643803:AAH-u1t5m0hc_EvKeCzi7zPYbjQneDUPkIM'
 # Arjun
-TOKEN = '1242272775:AAHdR1ImQce9f9MfnnvbBYP0s0VldNO7I-o'
+# TOKEN = '1242272775:AAHdR1ImQce9f9MfnnvbBYP0s0VldNO7I-o'
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)

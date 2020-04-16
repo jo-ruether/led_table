@@ -69,7 +69,7 @@ class Colorfade(Game):
                     hue = 255 - \
                           sqrt((x-self.center[0])**2 + (y-self.center[1])**2)/max_distance + \
                           (t//self.speed/self.period)
-                    self.output.setValueHSV(x, y, hue, self.saturation, self.value)
+                    self.output.set_value_hsv(x, y, hue, self.saturation, self.value)
 
             self.output.show()
 
@@ -90,6 +90,6 @@ class Colorfade(Game):
             for y in range(rows):
                 # Hue depends on the pixels distance to the center and on time
                 hue = sqrt((x-center[0])**2 + (y-center[1])**2)/max_distance
-                self.output.setValueHSV(x+1, y+1, hue, 1, 1)
+                self.output.set_value_hsv(x+1, y+1, hue, 1, 1)
 
         output.show()

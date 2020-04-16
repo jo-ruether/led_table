@@ -14,7 +14,7 @@ class Text:
 		
 		self.output = Output(world_dim[0], world_dim[1])
         self.startIdx = 0
-        self.update_pixelMatrix()
+        self.update_pixel_matrix()
 
         self.output = Output(dim[0], dim[1])
 
@@ -22,13 +22,13 @@ class Text:
 		""" Have text scroll leftwards over the screen
 		"""
         self.startIdx += 1
-        self.update_pixelMatrix()
+        self.update_pixel_matrix()
 		
     def moveRight(self):
 		""" Have text scroll rightwards over the screen
 		"""
         self.startIdx -=1
-        self.update_pixelMatrix()
+        self.update_pixel_matrix()
 
     def set_text(self, string):
         self.string = string

@@ -27,7 +27,7 @@ class Snake(Game):
         self.active = True
 
         # Initialize display elements
-        self.update_pixelMatrix()
+        self.update_pixel_matrix()
         self.print_world()
 
     def move_snake(self):
@@ -64,24 +64,22 @@ class Snake(Game):
                 y_new = self.snake[0][1] - 1
             self.snake = [(x_new % 12, y_new % 12)] + self.snake
 
-    def update_pixelMatrix(self):
+    def update_pixel_matrix(self):
         """Prepares the matrix, displaying the snake and the fruit 
         """
-        for x, row in enumerate(self.output.pixelMatrix):
-            for y, col in enumerate(self.output.pixelMatrix):
-                self.output.pixelMatrix[x][y] = self.garden_color
+        self.output.fill_matrix_rgb(self.garden_color)
 
         # Draw the fruit
-        self.output.pixelMatrix[self.fruit[0]][self.fruit[1]] = self.fruit_color
+        self.output.pixel_matrix[self.fruit[0]][self.fruit[1]] = self.fruit_color
         # Draw the snake
         i = 0
         for s in self.snake:
-            self.output.pixelMatrix[s[0]][s[1]] = self.snake_color
+            self.output.pixel_matrix[s[0]][s[1]] = self.snake_color
             # if length(self.snake) > 5:
             # i = i+1
-            # self.output.pixelMatrix[s[0]][s[1]] = (self.snake_color[0], self.snake_color[1]-i*20, self.snake_color[2])
+            # self.output.pixel_matrix[s[0]][s[1]] = (self.snake_color[0], self.snake_color[1]-i*20, self.snake_color[2])
         # Draw snake head
-        self.output.pixelMatrix[self.snake[0][0]][self.snake[0][1]] = self.head_color
+        self.output.pixel_matrix[self.snake[0][0]][self.snake[0][1]] = self.head_color
 
     def print_world(self):
         """ Prints the world matrix to the table
@@ -103,13 +101,13 @@ class Snake(Game):
     def game_over_animation(self):
         """ Animation to show when the game is over
         """
-        last_pixelMatrix = self.output.pixelMatrix
+        last_pixel_matrix = self.output.pixel_matrix
         for i in range(4):
-            self.output.emptyMatrix()
+            self.output.empty_matrix()
             self.print_world()
             sleep(0.3)
-            self.output.pixelMatrix = last_pixelMatrix
-            self.update_pixelMatrix()
+            self.output.pixel_matrix = last_pixel_matrix
+            self.update_pixel_matrix()
             self.print_world()
             sleep(0.3)
 
@@ -119,7 +117,7 @@ class Snake(Game):
         while self.active:
             self.update_direction()
             self.move_snake()
-            self.update_pixelMatrix()
+            self.update_pixel_matrix()
             self.print_world()
             time.sleep(0.2)
         self.game_over_animation()
@@ -133,19 +131,19 @@ class Snake(Game):
         super().draw_icon(output)
 
         # dummy fruit
-        output.setValueRGB(3, 4, self.fruit_color)
+        output.set_value_rgb(3, 4, self.fruit_color)
         # dummy snake
-        output.setValueRGB(7, 2, self.snake_color)
-        output.setValueRGB(7, 3, self.snake_color)
-        output.setValueRGB(7, 4, self.snake_color)
-        output.setValueRGB(7, 5, self.snake_color)
-        output.setValueRGB(8, 5, self.snake_color)
-        output.setValueRGB(8, 6, self.snake_color)
-        output.setValueRGB(8, 7, self.snake_color)
-        output.setValueRGB(8, 8, self.snake_color)
-        output.setValueRGB(7, 8, self.snake_color)
-        output.setValueRGB(6, 8, self.snake_color)
-        output.setValueRGB(5, 8, self.snake_color)
-        output.setValueRGB(4, 8, self.snake_color)
+        output.set_value_rgb(7, 2, self.snake_color)
+        output.set_value_rgb(7, 3, self.snake_color)
+        output.set_value_rgb(7, 4, self.snake_color)
+        output.set_value_rgb(7, 5, self.snake_color)
+        output.set_value_rgb(8, 5, self.snake_color)
+        output.set_value_rgb(8, 6, self.snake_color)
+        output.set_value_rgb(8, 7, self.snake_color)
+        output.set_value_rgb(8, 8, self.snake_color)
+        output.set_value_rgb(7, 8, self.snake_color)
+        output.set_value_rgb(6, 8, self.snake_color)
+        output.set_value_rgb(5, 8, self.snake_color)
+        output.set_value_rgb(4, 8, self.snake_color)
 
         output.show()

@@ -20,16 +20,16 @@ class Game(ABC):
 
         Don't forget to call the super class's method when overwriting.
         """
-        output.emptyMatrix()
+        output.empty_matrix()
 
         # Draw border around icon
         border_color = (255, 165, 0)    # orange
         cols = output.columns
         rows = output.rows
         for x in range(cols):
-            output.setValueRGB(x, 0, border_color)
-            output.setValueRGB(x, rows-1, border_color)
+            output.set_value_rgb(x, 0, border_color)
+            output.set_value_rgb(x, rows-1, border_color)
 
         for y in range(rows):
-            output.setValueRGB(0, y, border_color)
-            output.setValueRGB(cols-1, y, border_color)
+            output.set_value_rgb(0, y, border_color)
+            output.set_value_rgb(cols-1, y, border_color)

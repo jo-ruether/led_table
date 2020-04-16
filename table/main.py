@@ -3,7 +3,7 @@ import queue
 
 from table.TelegramBot import TelegramBot
 from table.games.Menu import Menu
-from table.Output import Output
+from table.OutputSim import OutputSim
 from table.Postman import Postman
 
 
@@ -63,7 +63,7 @@ def telegram(postman):
 postman = Postman(['Output', 'UserInput', 'Settings', 'UserFeedback'])
 
 # Create output for matrix rendering
-output = Output()
+output = OutputSim()
 
 telegram_thread = Thread(target=telegram, args=(postman,), daemon=True)
 telegram_thread.start()
