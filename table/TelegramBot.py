@@ -4,7 +4,7 @@ from telegram import InlineKeyboardMarkup, ReplyKeyboardMarkup
 import logging
 
 # Johannes
-TOKEN = '873643803:AAH-u1t5m0hc_EvKeCzi7zPYbjQneDUPkIM'
+# TOKEN = '873643803:AAH-u1t5m0hc_EvKeCzi7zPYbjQneDUPkIM'
 # Arjun
 # TOKEN = '1242272775:AAHdR1ImQce9f9MfnnvbBYP0s0VldNO7I-o'
 
@@ -14,8 +14,9 @@ logger = logging.getLogger(__name__)
 
 
 class TelegramBot():
-    def __init__(self, postman):
+    def __init__(self, postman, token):
         self.postman = postman
+        self.token = token
 
     def start(self, update, context):
         update.message.reply_text('Hallo')
@@ -56,7 +57,7 @@ class TelegramBot():
         # Create the Updater and pass it your bot's token.
         # Make sure to set use_context=True to use the new context based callbacks
         # Post version 12 this will no longer be necessary
-        updater = Updater(TOKEN, use_context=True)
+        updater = Updater(self.token, use_context=True)
 
         updater.dispatcher.add_handler(CommandHandler('start', self.start, pass_args=True))
 #        updater.dispatcher.add_handler(CallbackQueryHandler(self.button))

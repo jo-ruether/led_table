@@ -1,9 +1,14 @@
 from threading import Thread
 import queue
+import json
 
 from table.TelegramBot import TelegramBot
 from table.games.Menu import Menu
 from table.OutputSim import OutputSim
+try:
+    from table.OutputTable import OutputTable
+except:
+    pass
 from table.Postman import Postman
 
 
@@ -14,6 +19,11 @@ def application(postman, output):
     menu.start()
 
     output.emptyMatrix()
+
+
+def telegram(postman, token):
+    bot = TelegramBot(postman, token)
+    bot.run()
 
 # def inputs(input_q, b_pins=[7, 24]):
 #     """ Processes inputs by pushing them to the shared input_q
@@ -54,18 +64,23 @@ def application(postman, output):
 #         return False
 
 
-def telegram(postman):
-    bot = TelegramBot(postman)
-    bot.run()
+with open('config.json') as config_file:
+    config = json.load(config_file)
 
+# Create output for matrix rendering
+if config['table_present']:
+    try:
+        output = OutputTable()
+    except:
+        print("Unable to create table output")
+        output = OutputSim()
+else:
+    output = OutputSim()
 
 # Create postman for thread communication
 postman = Postman(['Output', 'UserInput', 'Settings', 'UserFeedback'])
 
-# Create output for matrix rendering
-output = OutputSim()
-
-telegram_thread = Thread(target=telegram, args=(postman,), daemon=True)
+telegram_thread = Thread(target=telegram, args=(postman, config['token']), daemon=True)
 telegram_thread.start()
 
 app_thread = Thread(target=application, args=(postman, output))
