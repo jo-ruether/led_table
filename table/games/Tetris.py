@@ -5,20 +5,18 @@ from time import sleep
 
 
 class Tetris(Game):
-    # Background color as RGB tuple
-    background_color = (0, 0, 0)
-
     def __init__(self, postman, output):
         super().__init__(postman, output)
-        # Todo maybe create a new pixel Matrix and pass to output. Depending on outcome of issue #18
-        self.pixel_matrix = output.pixel_matrix
+        # Stores landed blocks as RGB values
+        self.landed_blocks = np.zeros([self.output.rows, self.output.columns, 3])
 
         self.running = True
+        self.score = 0
 
     def start(self):
         while self.running:
             speed = .8
-            current_block = Tetromino(self, (0, self.output.columns//2-1))
+            current_block = Tetromino(self, (0, self.output.columns // 2 - 1))
 
             while current_block.fall():
                 sleep(speed)
@@ -30,17 +28,48 @@ class Tetris(Game):
 
             self.remove_full_rows()
 
+            # Render matrix
+            current_block.render()
+            self.render()
+
         # The Game has ended!
         return True
 
     def remove_full_rows(self):
-        raise NotImplemented
+        for index, row in enumerate(self.landed_blocks):
+            # Check if this row is full
+            if np.count_nonzero(row.sum(axis=1)) == self.landed_blocks.shape[1]:
+                self.score += 1
+                # Now move all rows above one pixel down
+                for r in range(index, 1, -1):
+                    self.landed_blocks[r] = self.landed_blocks[r - 1]
+                # Clear top row
+                self.landed_blocks[0] = np.zeros([12, 3])
 
     def game_over_animation(self):
-        raise NotImplemented
+        for i in range(4):
+            self.output.empty_matrix()
+            sleep(.3)
+            self.render()
+            sleep(.3)
+
+    def render(self):
+        for row, col in np.ndindex(self.landed_blocks.shape[0:2]):
+            self.output.set_value_rgb(row, col, self.landed_blocks[row, col])
 
     def draw_icon(self, output):
-        raise NotImplemented
+        super().draw_icon(output)
+
+        # Draw some blocks on the canvas
+        Tetromino(self, origin=(9, 1), shape="T", color="red").dissolve()
+        Tetromino(self, origin=(10, 4), shape="I", color="blue").dissolve()
+        Tetromino(self, origin=(9, 6), shape="J", color="yellow").dissolve()
+        Tetromino(self, origin=(9, 9), shape="O", color="blue").dissolve()
+        Tetromino(self, origin=(8, 3), shape="L", color="purple").dissolve()
+        Tetromino(self, origin=(7, 3), shape="S", color="brown").dissolve()
+        Tetromino(self, origin=(3, 5), shape="Z", color="red").dissolve()
+
+        self.output.show()
 
 
 class Tetromino:
@@ -50,45 +79,56 @@ class Tetromino:
     # Tuples are arranged in (row, col)
     shapes = {
         'I': {(0, 0), (0, 1), (0, 2), (0, 3)},
-        'J': {(-1, 0), (-1, 1), (-1, 2), (0, 0)},
-        'L': {(-1, 0), (-1, 1), (-1, 2), (0, 2)},
-        '0': {(0, 0), (0, 1), (-1, 0), (-1, 1)},
-        'T': {(0, 0), (0, 1), (-1, ), (-1, 1)},
-        'S': {(-1, 0), (-1, 1), (0, 1), (0, 2)},
-        'Z': {(-1, 0), (-1, 1), (0, 1), (0, 2)}
+        'J': {(0, 0), (0, 1), (0, 2), (1, 2)},
+        'L': {(1, 0), (1, 1), (1, 2), (0, 2)},
+        '0': {(0, 0), (0, 1), (1, 0), (1, 1)},
+        'T': {(1, 0), (1, 0), (1, 0), (1, 2)},
+        'S': {(1, 0), (1, 1), (0, 1), (0, 2)},
+        'Z': {(0, 0), (0, 1), (1, 1), (1, 2)}
     }
 
-    def __init__(self, GameInstance: Tetris, origin: tuple):
+    def __init__(self, GameInstance, origin=(0, 5), shape=None, color=None):
         self.game = GameInstance
         self.origin = origin
-        # Todo maybe create a new pixel Matrix and pass to output. Depending on outcome of issue #18
-        self.pixel_matrix = GameInstance.output.pixel_matrix
 
-        # Select shape and color randomly
-        random.seed()
-        letter, self.pixels = random.choice(list(self.shapes.items()))
-        # Todo Select random color from output class
-        self.color = "red"
+        # Set shape
+        if shape is None:
+            # Select shape and color randomly
+            random.seed()
+            letter, self.pixels = random.choice(list(self.shapes.items()))
+        else:
+            self.pixels = self.shapes[shape]
 
-        # Create occupancy matrix of same dimensions like pixel_matrix
-        rows = GameInstance.output.rows
-        cols = GameInstance.output.columns
-        self.occupancy_matrix = np.zeros(rows, cols)
+        # Choose color
+        if color is None:
+            # Todo Select random color from output class
+            self.color = "red"
+        else:
+            self. color = color
 
     def _check_validity(self, intended_origin, intended_pixels):
+        """  Check if block could be moved to an intended position
+
+        Args:
+            intended_origin: Origin of suggested block position
+            intended_pixels: Pixels of suggested block
+
+        Returns:
+            bool: False if that position would produce a collision. True otherwise.
+        """
         # Check validity for each pixel one by one
         for intended_pixel in intended_pixels:
-            row = intended_origin(0)+intended_pixel(0)
-            col = intended_origin(1)+intended_pixel(1)
+            row = intended_origin(0) + intended_pixel(0)
+            col = intended_origin(1) + intended_pixel(1)
 
-            if (row < 0) or (row > self.occupancy_matrix.shape[0]):
+            if (row < 0) or (row > self.game.output.rows):
                 return False
-            if (col < 0) or (col > self.occupancy_matrix.shape[1]):
+            if (col < 0) or (col > self.game.output.columns):
                 return False
-            if (self.pixel_matrix[row, col] != self.game.background_color) and \
-                (intended_pixel not in self.pixels):
-                    # This pixel is already occupied by the other fallen blocks
-                    return False
+            if (self.game.landed_blocks[row, col] != (0, 0, 0)) and \
+                    (intended_pixel not in self.pixels):
+                # This pixel is already occupied by another fallen block
+                return False
 
         # Intended position passed all tests
         return True
@@ -118,7 +158,7 @@ class Tetromino:
         Returns:
             bool:   False if moving is not possible, e.g. blocks would hit wall or other block.
         """
-        new_origin = (self.origin[0], self.origin[1]-1)
+        new_origin = (self.origin[0], self.origin[1] - 1)
 
         if self._check_validity(new_origin, self.pixels):
             self.origin = new_origin
@@ -132,7 +172,7 @@ class Tetromino:
         Returns:
             bool:   False if moving is not possible, e.g. blocks would hit wall or other block.
         """
-        new_origin = (self.origin[0], self.origin[1]+1)
+        new_origin = (self.origin[0], self.origin[1] + 1)
 
         if self._check_validity(new_origin, self.pixels):
             self.origin = new_origin
@@ -146,7 +186,7 @@ class Tetromino:
         Returns:
             bool:   False, if falling is not possible, e.g. blocks would ground wall or other block.
         """
-        new_origin = (self.origin[0]+1, self.origin[1])
+        new_origin = (self.origin[0] + 1, self.origin[1])
 
         if self._check_validity(new_origin, self.pixels):
             self.origin = new_origin
@@ -164,13 +204,10 @@ class Tetromino:
             bool: False, if dissolving would end in invalid move, e.g. game is over.
         """
         for pixel in self.pixels:
-            # Todo When issue #18 is dissolved this should modify pixel_matrix instead of output
-            self.game.output.set_value_color(pixel(0), pixel(1), self.color)
+            self.game.output.set_value_color(pixel[0], pixel[1], self.color)
 
     def render(self):
-        """ Adds this block to the pixelMatrix. Note: Does not call Output.show()
+        """ Adds this block to the outputs matrix. Note: Does not call Output.show()
         """
         for pixel in self.pixels:
-            # Todo When issue #18 is dissolved this should modify pixel_matrix instead of output
-            self.game.output.set_value_color(pixel(0), pixel(1), self.color)
-
+            self.game.output.set_value_color(pixel[0], pixel[1], self.color)
