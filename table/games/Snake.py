@@ -75,9 +75,6 @@ class Snake(Game):
         i = 0
         for s in self.snake:
             self.output.pixel_matrix[s[0], s[1]] = self.snake_color
-            # if length(self.snake) > 5:
-            # i = i+1
-            # self.output.pixel_matrix[s[0], s[1]] = (self.snake_color[0], self.snake_color[1]-i*20, self.snake_color[2])
         # Draw snake head
         self.output.pixel_matrix[self.snake[0][0], self.snake[0][1]] = self.head_color
 
@@ -94,9 +91,9 @@ class Snake(Game):
             cmd = post['message']
             # Change snake's direction according to input
             if cmd == 'right':
-                self.direction = (self.direction - 1) % 4
-            elif cmd == 'left':
                 self.direction = (self.direction + 1) % 4
+            elif cmd == 'left':
+                self.direction = (self.direction - 1) % 4
 
     def game_over_animation(self):
         """ Animation to show when the game is over
@@ -133,17 +130,9 @@ class Snake(Game):
         # dummy fruit
         output.set_value_rgb(3, 4, self.fruit_color)
         # dummy snake
-        output.set_value_rgb(7, 2, self.snake_color)
-        output.set_value_rgb(7, 3, self.snake_color)
-        output.set_value_rgb(7, 4, self.snake_color)
-        output.set_value_rgb(7, 5, self.snake_color)
-        output.set_value_rgb(8, 5, self.snake_color)
-        output.set_value_rgb(8, 6, self.snake_color)
-        output.set_value_rgb(8, 7, self.snake_color)
-        output.set_value_rgb(8, 8, self.snake_color)
-        output.set_value_rgb(7, 8, self.snake_color)
-        output.set_value_rgb(6, 8, self.snake_color)
-        output.set_value_rgb(5, 8, self.snake_color)
-        output.set_value_rgb(4, 8, self.snake_color)
+        output.pixel_matrix[7, 2:6] = self.snake_color
+        output.pixel_matrix[8, 5:9] = self.snake_color
+        output.pixel_matrix[8, 5:9] = self.snake_color
+        output.pixel_matrix[4:9, 8] = self.snake_color
 
         output.show()
