@@ -1,6 +1,7 @@
 from table.games.Snake import Snake
 from table.games.Game import Game
 from table.games.Colorfade import Colorfade
+from table.games.Clock import Clock
 
 
 class Menu(Game):
@@ -12,7 +13,9 @@ class Menu(Game):
 
         # List of available games
         self.current_selection = 0
-        self.games = [Snake(postman, output), Colorfade(postman, output)]
+        self.games = [Snake(postman, output),
+                      Colorfade(postman, output),
+                      Clock(postman, output)]
 
     def move_left(self):
         self.current_selection -= 1
