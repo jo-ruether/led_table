@@ -12,6 +12,9 @@ class Clock(Game):
                           '5': 'five', '6': 'six', '7': 'seven', '8': 'eight', '9': 'nine'}
         self.digits = np.load('digits.npz')
 
+        self.color_offset = 1
+        self.color_roll = np.concatenate((np.arange(255), np.arange(255, 0, -1)))
+
     def update_pixel_matrix(self, time_string):
         """Prepares the matrix, displaying all four digits
         """
@@ -21,7 +24,18 @@ class Clock(Game):
         canvas[7:13, 1:5] = self.digits[self.num2words[time_string[2]]]
         canvas[7:13, 7:11] = self.digits[self.num2words[time_string[3]]]
 
-        canvas = 255*canvas
+        color_matrix = np.zeros([self.output.rows, self.output.columns, 3])
+
+        for r in range(self.output.rows):
+            for c in range(self.output.columns):
+                # (255 * 0.15 * r / self.output.rows +
+                shade = self.color_roll[(self.color_offset + 4*c + 10*r) % len(self.color_roll)]
+                color_matrix[r, c, 1] = shade
+
+        self.color_offset = (self.color_offset + 2) % 510
+        color_matrix[:, :, 0] = 255
+
+        canvas = np.multiply(canvas, color_matrix)
         self.output.pixel_matrix = canvas
 
     def start(self):
@@ -31,8 +45,7 @@ class Clock(Game):
             time_string = strftime("%H%M")
             self.update_pixel_matrix(time_string)
             self.output.show()
-            time.sleep(0.2)
-        #return False
+            time.sleep(0.02)
 
     # TODO make static but how to access colors then?
     def draw_icon(self, output):
