@@ -8,7 +8,7 @@ class Output(ABC):
         self.rows = rows
         self.columns = columns
 
-        self.pixel_matrix = np.zeros([rows, columns, 3])
+        self.pixel_matrix = np.zeros([rows, columns, 3], dtype=np.uint8)
         self.colormap = {
                             "blue": [66, 133, 244],
                             "red": [219, 68, 55],
