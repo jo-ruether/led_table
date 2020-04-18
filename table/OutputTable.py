@@ -10,21 +10,21 @@ class OutputTable(Output):
                                         auto_write=False, pixel_order=neopixel.GRB)
         self.pixels.fill((0, 0, 0))
 
-    def xy_to_pixel(self, x, y):
+    def rowcol_to_pixel(self, row, col):
         """
         Converts XY coordinates into Pixel number. The origin is located in the upper left corner
         of the matrix.
         """
-        if y%2 == 0:
-            value = x+y*12
+        if col%2 == 0:
+            value = row+col*12
         else:
-            value = y*12 + 11-x
+            value = col*12 + 11-row
         return value
 
     def show(self):
         # if len(self.pixel_matrix) == self.rows and len(self.pixel_matrix[0]) == self.columns:
         for x, row in enumerate(self.pixel_matrix):
             for y, rgb_value in enumerate(row):
-                pixel = self.xy_to_pixel(x, y)
+                pixel = self.rowcol_to_pixel(x, y)
                 self.pixels[pixel] = rgb_value
         self.pixels.show()

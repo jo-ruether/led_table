@@ -7,11 +7,14 @@ class OutputSim(Output):
     def __init__(self, rows=12, columns=12):
         super().__init__(rows=rows, columns=columns)
 
+        self.rows = rows
+        self.columns = columns
+
     def show(self):
         # Copy pixel_matrix into OpenCV-compatible image
-        img = np.zeros((12, 12, 3), dtype=np.uint8)
-        for r in range(12):
-            for c in range(12):
+        img = np.zeros((self.rows, self.columns, 3), dtype=np.uint8)
+        for r in range(self.rows):
+            for c in range(self.columns):
                 # Color order is different in opencv
                 img[r, c, 2] = self.pixel_matrix[c][r][0]
                 img[r, c, 1] = self.pixel_matrix[c][r][1]

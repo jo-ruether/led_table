@@ -19,18 +19,18 @@ class Output(ABC):
                             "brown": [109, 76, 65],
         }
 
-    def set_value_rgb(self, x, y, rgb_values):
-        self.pixel_matrix[x, y] = rgb_values
+    def set_value_rgb(self, row, col, rgb_values):
+        self.pixel_matrix[row, col] = rgb_values
 
-    def set_value_hsv(self, x, y, h, s, v):
+    def set_value_hsv(self, row, col, h, s, v):
         rgb = colorsys.hsv_to_rgb(h, s, v)
         # Scale from range 0-1 up to 255 for Neopixel library
-        rgb_values = [round(255*x) for x in rgb]
-        self.pixel_matrix[x, y] = rgb_values
+        rgb_values = [round(255*row) for row in rgb]
+        self.pixel_matrix[row, col] = rgb_values
 
-    def set_value_color(self, x, y, color):
+    def set_value_color(self, row, col, color):
         if color in self.colormap:
-            self.set_value_rgb(x, y, self.colormap[color])
+            self.set_value_rgb(row, col, self.colormap[color])
         else:
             print("Color not predefined. Value is not changed!")
 
