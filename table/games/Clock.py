@@ -41,12 +41,21 @@ class Clock(Game):
         """
         super().draw_icon(output)
 
-        # dummy fruit
-        output.set_value_rgb(3, 4, (255, 255, 255))
-        # dummy snake
-        output.set_value_rgb(7, 2, (255, 255, 255))
-        output.set_value_rgb(7, 3, (255, 255, 255))
-        output.set_value_rgb(7, 4, (255, 255, 255))
-        output.set_value_rgb(7, 5, (255, 255, 255))
+        frame_color = [255, 255, 255]
+        needle_color = [200, 50, 50]
+
+        self.output.pixel_matrix[2, 4:8] = frame_color
+
+        self.output.pixel_matrix[4, [3, 8]] = frame_color
+        self.output.pixel_matrix[7, [3, 8]] = frame_color
+        self.output.pixel_matrix[3, [3, 4, 7, 8]] = frame_color
+        self.output.pixel_matrix[8, [3, 4, 7, 8]] = frame_color
+        self.output.pixel_matrix[9, 4:8] = frame_color
+        self.output.pixel_matrix[4:8, 2] = frame_color
+        self.output.pixel_matrix[4:8, 9] = frame_color
+
+        self.output.pixel_matrix[4, 4] = needle_color
+        self.output.pixel_matrix[5, 5] = needle_color
+        self.output.pixel_matrix[6, 6:9] = needle_color
 
         output.show()
