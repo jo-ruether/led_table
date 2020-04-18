@@ -8,8 +8,8 @@ class Colorfade(Game):
         super().__init__(postman, output)
 
         # Configuration
-        self.speed = 0.5 # s per change
-        self.period = 10 # steps per a whole hue iteration
+        self.speed = 0.5  # s per change
+        self.period = 10  # steps per a whole hue iteration
         self.saturation = 1
         self.value = 1
         # Center of color cycle (x,y)

@@ -70,16 +70,16 @@ class Snake(Game):
         self.output.fill_matrix_rgb(self.garden_color)
 
         # Draw the fruit
-        self.output.pixel_matrix[self.fruit[0]][self.fruit[1]] = self.fruit_color
+        self.output.pixel_matrix[self.fruit[0], self.fruit[1]] = self.fruit_color
         # Draw the snake
         i = 0
         for s in self.snake:
-            self.output.pixel_matrix[s[0]][s[1]] = self.snake_color
+            self.output.pixel_matrix[s[0], s[1]] = self.snake_color
             # if length(self.snake) > 5:
             # i = i+1
-            # self.output.pixel_matrix[s[0]][s[1]] = (self.snake_color[0], self.snake_color[1]-i*20, self.snake_color[2])
+            # self.output.pixel_matrix[s[0], s[1]] = (self.snake_color[0], self.snake_color[1]-i*20, self.snake_color[2])
         # Draw snake head
-        self.output.pixel_matrix[self.snake[0][0]][self.snake[0][1]] = self.head_color
+        self.output.pixel_matrix[self.snake[0][0], self.snake[0][1]] = self.head_color
 
     def print_world(self):
         """ Prints the world matrix to the table
