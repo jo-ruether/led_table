@@ -3,12 +3,14 @@ import json
 
 from table.TelegramBot import TelegramBot
 from table.games.Menu import Menu
-from table.OutputSim import OutputSim
+from table.Postman import Postman
+
 try:
     from table.OutputTable import OutputTable
-except:
-    pass
-from table.Postman import Postman
+except ImportError:
+    from table.OutputSim import OutputSim
+
+
 
 import logging
 logging.basicConfig(level=logging.DEBUG,

@@ -2,6 +2,7 @@ from table.games.Snake import Snake
 from table.games.Game import Game
 from table.games.Colorfade import Colorfade
 from table.games.Clock import Clock
+from table.games.Tetris import Tetris
 
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -20,6 +21,7 @@ class Menu(Game):
         self.games = [Snake(postman, output),
                       Colorfade(postman, output),
                       Clock(postman, output)]
+                      Tetris(postman, output)]
 
     def move_left(self):
         self.current_selection -= 1
