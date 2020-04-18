@@ -1,6 +1,7 @@
 import board
 import neopixel
 from table.Output import Output
+import numpy as np
 
 
 class OutputTable(Output):
@@ -10,21 +11,20 @@ class OutputTable(Output):
                                         auto_write=False, pixel_order=neopixel.GRB)
         self.pixels.fill((0, 0, 0))
 
-    def rowcol_to_pixel(self, row, col):
+    def matrix_index_to_led_number(self, row, col):
         """
         Converts XY coordinates into Pixel number. The origin is located in the upper left corner
         of the matrix.
         """
-        if col%2 == 0:
-            value = row+col*12
+        if row%2 == 0:
+            value = col + row*self.columns
         else:
-            value = col*12 + 11-row
+            value = row*12 + 11-col
         return value
 
     def show(self):
-        # if len(self.pixel_matrix) == self.rows and len(self.pixel_matrix[0]) == self.columns:
-        for x, row in enumerate(self.pixel_matrix):
-            for y, rgb_value in enumerate(row):
-                pixel = self.rowcol_to_pixel(x, y)
-                self.pixels[pixel] = rgb_value
+        for id_row, id_col in np.ndindex(self.pixel_matrix.shape[0:2]):
+            led_position = self.matrix_index_to_led_number(id_row, id_col)
+            self.pixels[led_position] = self.pixel_matrix[id_row, id_col]
+
         self.pixels.show()
