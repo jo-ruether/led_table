@@ -64,7 +64,7 @@ class Tetris(Game):
         Tetromino(self, origin=(9, 1), shape="T", color="red").dissolve()
         Tetromino(self, origin=(10, 4), shape="I", color="blue").dissolve()
         Tetromino(self, origin=(9, 6), shape="J", color="yellow").dissolve()
-        Tetromino(self, origin=(9, 9), shape="O", color="blue").dissolve()
+        Tetromino(self, origin=(0, 0), shape="O", color="blue").dissolve()
         Tetromino(self, origin=(8, 3), shape="L", color="purple").dissolve()
         Tetromino(self, origin=(7, 3), shape="S", color="brown").dissolve()
         Tetromino(self, origin=(3, 5), shape="Z", color="red").dissolve()
@@ -204,10 +204,14 @@ class Tetromino:
             bool: False, if dissolving would end in invalid move, e.g. game is over.
         """
         for pixel in self.pixels:
-            self.game.output.set_value_color(pixel[0], pixel[1], self.color)
+            self.game.output.set_value_color(self.origin[0]+pixel[0],
+                                             self.origin[1]+pixel[1],
+                                             self.color)
 
     def render(self):
         """ Adds this block to the outputs matrix. Note: Does not call Output.show()
         """
         for pixel in self.pixels:
-            self.game.output.set_value_color(pixel[0], pixel[1], self.color)
+            self.game.output.set_value_color(self.origin[0]+pixel[0],
+                                             self.origin[1]+pixel[1],
+                                             self.color)
