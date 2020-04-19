@@ -16,7 +16,7 @@ class OutputTable(Output):
         Converts XY coordinates into Pixel number. The origin is located in the upper left corner
         of the matrix.
         """
-        if row%2 == 0:
+        if row % 2 == 0:
             value = col + row*self.columns
         else:
             value = row*12 + 11-col
@@ -25,6 +25,6 @@ class OutputTable(Output):
     def show(self):
         for id_row, id_col in np.ndindex(self.pixel_matrix.shape[0:2]):
             led_position = self.matrix_index_to_led_number(id_row, id_col)
-            self.pixels[led_position] = self.pixel_matrix[id_row, id_col]
+            self.pixels[led_position] = self.pixel_matrix[id_row, id_col].astype('uint8')
 
         self.pixels.show()
