@@ -51,7 +51,8 @@ class TelegramBot():
         if post:
             msg = post['message']
             logger.info(f"UserFeedback received. Now printing out: {msg}")
-            update.message.reply_text(msg)
+            # BUG see issue #14
+            # update.message.reply_text(msg)
 
     def run(self):
         # Create the Updater and pass it your bot's token.

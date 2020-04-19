@@ -1,7 +1,7 @@
 from table.games.Game import Game
 import random
 import numpy as np
-from time import sleep
+from time import time, sleep
 
 
 class Tetris(Game):
@@ -17,7 +17,7 @@ class Tetris(Game):
     def check_user_input(self):
         """ Asks postman for user input """
         post = self.postman.request('UserInput')
-        if post:
+        while post:
             cmd = post['message']
             if cmd == 'left':
                 self.current_block.move_left()
@@ -26,37 +26,49 @@ class Tetris(Game):
             elif cmd == 'action':
                 self.current_block.rotate()
 
+            # Check if there is even more to read
+            post = self.postman.request('UserInput')
+
     def start(self):
         self.running = True
+        t_last_falling = 0
+        self.current_block = Tetromino(self, (0, self.output.columns // 2 - 1))
         self.output.empty_matrix()
 
         while self.running:
             speed = .8
 
-            # Create new block
-            self.current_block = Tetromino(self, (0, self.output.columns // 2 - 1))
+            if (time() - t_last_falling) > speed:
+                t_last_falling = time()
 
-            while self.current_block.fall():
-                # Render matrix (order important!)
-                self.render()
-                self.current_block.render()
+                # Check if block has landed
+                if not self.current_block.fall():
+                    if not self.current_block.dissolve():
+                        # Game over
+                        break
+                    else:
+                        # Create new block
+                        self.current_block = Tetromino(self, (0, self.output.columns // 2 - 1))
 
-                # Check for user input
-                self.check_user_input()
-                sleep(speed)
+            # Render matrix (order important!)
+            self.render()
+            self.current_block.render()
+            self.output.show()
 
-            # Block has landed
-            if not self.current_block.dissolve():
-                self.running = False
-
-                # Send score to user
-                congratulations = "Well done. You scored {0} points!".format(self.score)
-                self.postman.send('UserFeedback', congratulations)
-
-                # Block couldn't dissolve
-                self.game_over_animation()
+            # Check for user input
+            self.check_user_input()
 
             self.remove_full_rows()
+
+        # Game is over !
+        self.running = False
+
+        # Send score to user
+        congratulations = "Well done. You scored {0} points!".format(self.score)
+        self.postman.send('UserFeedback', congratulations)
+
+        # Block couldn't dissolve
+        self.game_over_animation()
 
         # The Game has ended!
         return True
@@ -84,19 +96,17 @@ class Tetris(Game):
         for row, col in np.ndindex(self.landed_blocks.shape[0:2]):
             self.output.set_value_rgb(row, col, self.landed_blocks[row, col])
 
-        self.output.show()
-
     def draw_icon(self, output):
         super().draw_icon(output)
 
         # Draw some blocks on the canvas
-        Tetromino(self, origin=(9, 1), shape="T", color="red").render()
-        Tetromino(self, origin=(10, 4), shape="I", color="blue").render()
-        Tetromino(self, origin=(9, 6), shape="J", color="yellow").render()
-        Tetromino(self, origin=(9, 9), shape="O", color="blue").render()
-        Tetromino(self, origin=(8, 3), shape="L", color="purple").render()
-        Tetromino(self, origin=(7, 3), shape="S", color="green").render()
-        Tetromino(self, origin=(3, 5), shape="Z", color="red").render()
+        Tetromino(self, origin=(9, 2), shape="T", color="red").render()
+        Tetromino(self, origin=(10, 5), shape="I", color="blue").render()
+        Tetromino(self, origin=(9, 7), shape="J", color="yellow").render()
+        Tetromino(self, origin=(9, 10), shape="O", color="blue").render()
+        Tetromino(self, origin=(8, 4), shape="L", color="purple").render()
+        Tetromino(self, origin=(7, 4), shape="S", color="green").render()
+        Tetromino(self, origin=(3, 6), shape="Z", color="red").render()
 
         self.output.show()
 
@@ -107,13 +117,13 @@ class Tetromino:
     # The coordinates are relative to the block's origin
     # Tuples are arranged in (row, col)
     shapes = {
-        'I': {(0, 0), (0, 1), (0, 2), (0, 3)},
-        'J': {(0, 0), (0, 1), (0, 2), (1, 2)},
-        'L': {(1, 0), (1, 1), (1, 2), (0, 2)},
-        'O': {(0, 0), (0, 1), (1, 0), (1, 1)},
-        'T': {(1, 0), (1, 1), (0, 1), (1, 2)},
-        'S': {(1, 0), (1, 1), (0, 1), (0, 2)},
-        'Z': {(0, 0), (0, 1), (1, 1), (1, 2)}
+        'I': {(0, -1), (0, 0), (0, 1), (0, 2)},
+        'J': {(0, -1), (0, 0), (0, 1), (1, 1)},
+        'L': {(1, -1), (1, 0), (1, 1), (0, 1)},
+        'O': {(0, -1), (0, 0), (1, -1), (1, 0)},
+        'T': {(1, -1), (1, 0), (0, 0), (1, 1)},
+        'S': {(1, -1), (1, 0), (0, 0), (0, 1)},
+        'Z': {(0, -1), (0, 0), (1, 0), (1, 1)}
     }
 
     def __init__(self, GameInstance, origin=(0, 5), shape=None, color=None):
@@ -258,5 +268,3 @@ class Tetromino:
             self.game.output.set_value_color(self.origin[0]+pixel[0],
                                              self.origin[1]+pixel[1],
                                              self.color)
-
-        self.game.output.show()

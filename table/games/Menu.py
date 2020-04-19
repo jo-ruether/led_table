@@ -9,6 +9,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 class Menu(Game):
     def __init__(self, postman, output):
         super().__init__(postman, output)
