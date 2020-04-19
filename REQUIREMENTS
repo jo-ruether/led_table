@@ -1,1 +1,2 @@
-python 3.4+
+python 3.4+ due to neopixel
+python 3.6 due to fstrings

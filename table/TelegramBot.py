@@ -19,13 +19,15 @@ class TelegramBot():
         self.token = token
 
     def start(self, update, context):
+        logger.info("TelegramBot is started.")
         update.message.reply_text('Hallo')
         reply_keyboard = [['action'], ['left', 'right']]
         reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False)
-        update.message.reply_text('Please choose:', reply_markup=reply_markup)  
-            
+        update.message.reply_text('Please choose:', reply_markup=reply_markup)
+
     def button(self, update, context):
         command = update.message.text
+        logger.info(f"UserInput received: {command}")
         self.postman.send('UserInput', command)
         update.message.reply_text(text="Selected option: {}".format(command))
 
@@ -39,6 +41,7 @@ class TelegramBot():
     def set(self, update, context):
         """ Change configuration of games"""
         command = context.args
+        logger.info(f"Set command received: {command}")
         if len(command) == 2:
             self.postman.send('Settings', command)
         else:
@@ -48,9 +51,11 @@ class TelegramBot():
 
     def check_user_feedback(self, update):
         """ Asks postman for user feedback to be printed out"""
+        logger.debug("Checking for user feedback.")
         post = self.postman.request('UserFeedback')
         if post:
             msg = post['message']
+            logger.info(f"UserFeedback received. Now printing out: {msg}")
             update.message.reply_text(msg)
 
     def run(self):

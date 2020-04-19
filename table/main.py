@@ -1,5 +1,4 @@
 from threading import Thread
-import queue
 import json
 
 from table.TelegramBot import TelegramBot
@@ -10,6 +9,10 @@ try:
 except:
     pass
 from table.Postman import Postman
+
+import logging
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(process)d-%(levelname)s-%(message)s')
 
 
 def application(postman, output):

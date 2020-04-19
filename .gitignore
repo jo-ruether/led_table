@@ -1,3 +1,5 @@
+.idea
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
@@ -19,3 +21,7 @@
 
 # Ignore config file
 table/config.json
+
+*__pycache__*
+
+table/test.ipynb

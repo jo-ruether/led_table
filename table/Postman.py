@@ -1,5 +1,5 @@
 from queue import Queue
-import inspect
+#import inspect
 from datetime import datetime
 
 class Postman:
@@ -23,7 +23,9 @@ class Postman:
         Hand a messages over to the postman concerning a specified topic.
         """
         # Retrieve function caller from call stack
-        sender = inspect.stack()[1][3]
+        # This line needs 20 sec for first execution!
+        # sender = inspect.stack()[1][3]
+        sender = 'Unknown'
 
         if topic in self.mailbox:
             package = dict(sender=sender, \
@@ -54,7 +56,9 @@ class Postman:
                 return False
         else:
             # Retrieve function caller from call stack
-            caller = inspect.stack()[1][3]
+            # This line needs 20 sec for first execution!
+            # caller = inspect.stack()[1][3]
+            caller = 'Unknown'
             print('[ERROR] Postman: Requested topic {0} not available for delivery to {1}'.format(
                 topic, caller))
             return False
