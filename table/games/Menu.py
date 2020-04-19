@@ -20,7 +20,7 @@ class Menu(Game):
         self.current_selection = 0
         self.games = [Snake(postman, output),
                       Colorfade(postman, output),
-                      Clock(postman, output)]
+                      Clock(postman, output),
                       Tetris(postman, output)]
 
     def move_left(self):

@@ -34,6 +34,9 @@ class Output(ABC):
         else:
             print("Color not predefined. Value is not changed!")
 
+    def color_to_rgb(self, color):
+        return self.colormap[color]
+
     @abstractmethod
     def show(self):
         pass

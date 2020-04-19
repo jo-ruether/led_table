@@ -7,7 +7,7 @@ from table.Postman import Postman
 
 try:
     from table.OutputTable import OutputTable
-except ImportError:
+except (ImportError, NotImplementedError):
     from table.OutputSim import OutputSim
 
 

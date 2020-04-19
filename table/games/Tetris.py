@@ -12,29 +12,56 @@ class Tetris(Game):
 
         self.running = True
         self.score = 0
+        self.current_block = None
+
+    def check_user_input(self):
+        """ Asks postman for user input """
+        post = self.postman.request('UserInput')
+        if post:
+            cmd = post['message']
+            if cmd == 'left':
+                self.current_block.move_left()
+            elif cmd == 'right':
+                self.current_block.move_right()
+            elif cmd == 'action':
+                self.current_block.rotate()
 
     def start(self):
+        self.running = True
+        self.output.empty_matrix()
+
         while self.running:
             speed = .8
-            current_block = Tetromino(self, (0, self.output.columns // 2 - 1))
 
-            while current_block.fall():
+            # Create new block
+            self.current_block = Tetromino(self, (0, self.output.columns // 2 - 1))
+
+            while self.current_block.fall():
+                # Render matrix (order important!)
+                self.render()
+                self.current_block.render()
+
+                # Check for user input
+                self.check_user_input()
                 sleep(speed)
 
             # Block has landed
-            if not current_block.dissolve():
+            if not self.current_block.dissolve():
+                self.running = False
+
+                # Send score to user
+                congratulations = "Well done. You scored {0} points!".format(self.score)
+                self.postman.send('UserFeedback', congratulations)
+
                 # Block couldn't dissolve
                 self.game_over_animation()
 
             self.remove_full_rows()
 
-            # Render matrix
-            current_block.render()
-            self.render()
-
         # The Game has ended!
         return True
 
+    # Todo Testing still missing as this is not possible due to telegram latency
     def remove_full_rows(self):
         for index, row in enumerate(self.landed_blocks):
             # Check if this row is full
@@ -57,17 +84,19 @@ class Tetris(Game):
         for row, col in np.ndindex(self.landed_blocks.shape[0:2]):
             self.output.set_value_rgb(row, col, self.landed_blocks[row, col])
 
+        self.output.show()
+
     def draw_icon(self, output):
         super().draw_icon(output)
 
         # Draw some blocks on the canvas
-        Tetromino(self, origin=(9, 1), shape="T", color="red").dissolve()
-        Tetromino(self, origin=(10, 4), shape="I", color="blue").dissolve()
-        Tetromino(self, origin=(9, 6), shape="J", color="yellow").dissolve()
-        Tetromino(self, origin=(0, 0), shape="O", color="blue").dissolve()
-        Tetromino(self, origin=(8, 3), shape="L", color="purple").dissolve()
-        Tetromino(self, origin=(7, 3), shape="S", color="brown").dissolve()
-        Tetromino(self, origin=(3, 5), shape="Z", color="red").dissolve()
+        Tetromino(self, origin=(9, 1), shape="T", color="red").render()
+        Tetromino(self, origin=(10, 4), shape="I", color="blue").render()
+        Tetromino(self, origin=(9, 6), shape="J", color="yellow").render()
+        Tetromino(self, origin=(9, 9), shape="O", color="blue").render()
+        Tetromino(self, origin=(8, 3), shape="L", color="purple").render()
+        Tetromino(self, origin=(7, 3), shape="S", color="green").render()
+        Tetromino(self, origin=(3, 5), shape="Z", color="red").render()
 
         self.output.show()
 
@@ -82,7 +111,7 @@ class Tetromino:
         'J': {(0, 0), (0, 1), (0, 2), (1, 2)},
         'L': {(1, 0), (1, 1), (1, 2), (0, 2)},
         'O': {(0, 0), (0, 1), (1, 0), (1, 1)},
-        'T': {(1, 0), (1, 0), (1, 0), (1, 2)},
+        'T': {(1, 0), (1, 1), (0, 1), (1, 2)},
         'S': {(1, 0), (1, 1), (0, 1), (0, 2)},
         'Z': {(0, 0), (0, 1), (1, 1), (1, 2)}
     }
@@ -101,8 +130,8 @@ class Tetromino:
 
         # Choose color
         if color is None:
-            # Todo Select random color from output class
-            self.color = "red"
+            colormap = self.game.output.colormap
+            self.color = random.choice(list(colormap.keys()))
         else:
             self. color = color
 
@@ -118,20 +147,28 @@ class Tetromino:
         """
         # Check validity for each pixel one by one
         for intended_pixel in intended_pixels:
-            row = intended_origin(0) + intended_pixel(0)
-            col = intended_origin(1) + intended_pixel(1)
+            row = intended_origin[0] + intended_pixel[0]
+            col = intended_origin[1] + intended_pixel[1]
 
-            if (row < 0) or (row > self.game.output.rows):
+            if (row < 0) or (row >= self.game.output.rows):
                 return False
-            if (col < 0) or (col > self.game.output.columns):
+            if (col < 0) or (col >= self.game.output.columns):
                 return False
-            if (self.game.landed_blocks[row, col] != (0, 0, 0)) and \
-                    (intended_pixel not in self.pixels):
+            if np.any(self.game.landed_blocks[row, col]):
                 # This pixel is already occupied by another fallen block
                 return False
 
         # Intended position passed all tests
         return True
+
+    def _get_absolute_pixels(self):
+        absolute_pixels = set()
+        for pixel in self.pixels:
+            row = self.origin[0] + pixel[0]
+            col = self.origin[1] + pixel[1]
+            absolute_pixels.add((row, col))
+
+        return absolute_pixels
 
     def rotate(self):
         """ Rotates block if possible.
@@ -143,7 +180,7 @@ class Tetromino:
 
         # Rotate each pixel one by one in clockwise direction
         for pixel in self.pixels:
-            rotated_pixel = (pixel[0], -pixel[1])
+            rotated_pixel = (-pixel[1], pixel[0])
             new_pixels.add(rotated_pixel)
 
         if self._check_validity(self.origin, new_pixels):
@@ -186,7 +223,7 @@ class Tetromino:
         Returns:
             bool:   False, if falling is not possible, e.g. blocks would ground wall or other block.
         """
-        new_origin = (self.origin[0] + 1, self.origin[1])
+        new_origin = (self.origin[0]+1, self.origin[1])
 
         if self._check_validity(new_origin, self.pixels):
             self.origin = new_origin
@@ -198,15 +235,21 @@ class Tetromino:
         """ Blocks is transformed to permanent pixel.
 
         Is called when falling isn't possible anymore. Therefore the block is added to the
-        pixel_matrix as permament pixel and the class instance is destructed.
+        landed_blocks of the game.
 
         Returns:
             bool: False, if dissolving would end in invalid move, e.g. game is over.
         """
+        if not self._check_validity(self.origin, self.pixels):
+            return False
+
         for pixel in self.pixels:
-            self.game.output.set_value_color(self.origin[0]+pixel[0],
-                                             self.origin[1]+pixel[1],
-                                             self.color)
+            row = self.origin[0] + pixel[0]
+            col = self.origin[1] + pixel[1]
+
+            self.game.landed_blocks[row, col] = self.game.output.color_to_rgb(self.color)
+
+        return True
 
     def render(self):
         """ Adds this block to the outputs matrix. Note: Does not call Output.show()
@@ -215,3 +258,5 @@ class Tetromino:
             self.game.output.set_value_color(self.origin[0]+pixel[0],
                                              self.origin[1]+pixel[1],
                                              self.color)
+
+        self.game.output.show()
