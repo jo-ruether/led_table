@@ -83,7 +83,7 @@ else:
     output = OutputSim()
 
 # Create postman for thread communication
-postman = Postman(['Output', 'UserInput', 'Settings', 'UserFeedback'])
+postman = Postman()
 
 telegram_thread = Thread(target=telegram, args=(postman, config['token']), daemon=True)
 telegram_thread.start()

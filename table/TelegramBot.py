@@ -1,10 +1,11 @@
 from telegram.ext import Updater, InlineQueryHandler, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import InlineKeyboardMarkup, ReplyKeyboardMarkup
+from telegram import Bot
 
 import logging
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
+                    level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
@@ -12,6 +13,8 @@ class TelegramBot():
     def __init__(self, postman, token):
         self.postman = postman
         self.token = token
+        self.bot = Bot(token)
+        self.registered_users = []
 
     def start(self, update, context):
         logger.info("TelegramBot is started.")
@@ -33,6 +36,12 @@ class TelegramBot():
         """Log Errors caused by Updates."""
         logger.warning('Update "%s" caused error "%s"', update, context.error)
 
+    def register(self, update, context):
+        self.registered_users.append(update.message.chat.id)
+      
+    def show_registered_users(self, update, context):
+        update.message.reply_text(str(self.registered_users))
+
     def set(self, update, context):
         """ Change configuration of games"""
         command = context.args
@@ -44,15 +53,15 @@ class TelegramBot():
             update.message.reply_text("Please stay to the standard format: ```/set <variable> "
                                       "<value>.```")
 
-    def check_user_feedback(self, update):
+    def check_user_feedback(self,):
         """ Asks postman for user feedback to be printed out"""
-        logger.debug("Checking for user feedback.")
         post = self.postman.request('UserFeedback')
         if post:
             msg = post['message']
             logger.info(f"UserFeedback received. Now printing out: {msg}")
-            # BUG see issue #14
-            # update.message.reply_text(msg)
+            logger.info(f"These users are registered: {self.registered_users}")
+            if self.registered_users:
+                self.bot.send_message(chat_id=self.registered_users[0], text=msg)
 
     def run(self):
         # Create the Updater and pass it your bot's token.
@@ -63,6 +72,8 @@ class TelegramBot():
         updater.dispatcher.add_handler(CommandHandler('start', self.start, pass_args=True))
 #        updater.dispatcher.add_handler(CallbackQueryHandler(self.button))
         updater.dispatcher.add_handler(CommandHandler('help', self.help))
+        updater.dispatcher.add_handler(CommandHandler('register', self.register))
+        updater.dispatcher.add_handler(CommandHandler('show_registered', self.show_registered_users))
         updater.dispatcher.add_handler(CommandHandler('set', self.set))
         updater.dispatcher.add_handler(MessageHandler(Filters.text, self.button))
         updater.dispatcher.add_error_handler(self.error)
@@ -71,4 +82,4 @@ class TelegramBot():
         updater.start_polling()
 
         while True:
-            self.check_user_feedback(updater)
+            self.check_user_feedback()

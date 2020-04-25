@@ -1,6 +1,6 @@
 from queue import Queue
-#import inspect
 from datetime import datetime
+
 
 class Postman:
     """
@@ -11,11 +11,12 @@ class Postman:
     Messages are enriched with information about the sender and a timestamp automatically. Note
     that each message can only be retrieved once! So multi-recipients messages are not supported.
     """
+    topics = ['Output', 'UserInput', 'Settings', 'UserFeedback']
 
-    def __init__(self, topics):
+    def __init__(self):
         # Stores messages in a queue accessible via the topic name
         self.mailbox = dict()
-        for key in topics:
+        for key in self.topics:
             self.mailbox[key] = Queue(maxsize=3)
 
     def send(self, topic, msg):
