@@ -18,6 +18,7 @@ class TelegramBot:
         self.token = token
         self.bot = Bot(token)
         self.password = password
+        self.admin_user = "No one rules this table."
 
     def start(self, update, context):
         logger.info("TelegramBot is started.")

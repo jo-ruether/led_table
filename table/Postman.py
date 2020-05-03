@@ -1,6 +1,18 @@
 from queue import Queue
 from datetime import datetime
 
+topics = ['Output', 'UserInput', 'Settings', 'UserFeedback']
+
+# TODO refactor topics
+
+# class Topics:
+#    # Messages send TO the user
+#    OUTPUT = 0
+#    # Controller commands or input received FROM the user
+#    INPUT = 0
+#    SETTINGS = 0
+
+# TODO make messages as class not as dict! ?? Less flexibility
 
 class Postman:
     """
@@ -11,12 +23,14 @@ class Postman:
     Messages are enriched with information about the sender and a timestamp automatically. Note
     that each message can only be retrieved once! So multi-recipients messages are not supported.
     """
-    topics = ['Output', 'UserInput', 'Settings', 'UserFeedback']
 
     def __init__(self):
         # Stores messages in a queue accessible via the topic name
         self.mailbox = dict()
-        for key in self.topics:
+
+        # members = [attr for attr in dir(example) if
+        #           not callable(getattr(example, attr)) and not attr.startswith("__")]
+        for key in topics:
             self.mailbox[key] = Queue(maxsize=3)
 
     def send(self, topic, msg):

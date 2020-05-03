@@ -25,3 +25,8 @@ table/config.json
 *__pycache__*
 
 table/test.ipynb
+
+.floo
+.flooignore
+
+table/.cache-arjun-de

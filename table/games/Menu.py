@@ -3,6 +3,7 @@ from table.games.Game import Game
 from table.games.Colorfade import Colorfade
 from table.games.Clock import Clock
 from table.games.Tetris import Tetris
+from table.games.Spotify import Spotify
 
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -19,7 +20,8 @@ class Menu(Game):
 
         # List of available games
         self.current_selection = 0
-        self.games = [Snake(postman, output),
+        self.games = [Spotify(postman, output),
+                      Snake(postman, output),
                       Colorfade(postman, output),
                       Clock(postman, output),
                       Tetris(postman, output)]
