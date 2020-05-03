@@ -17,7 +17,7 @@ class TelegramBot:
         self.token = token
         self.bot = Bot(token)
         self.password = password
-        self.admin_user = "No one rules this table."
+        self.admin_user = None
 
     def start(self, update, context):
         logger.info("TelegramBot is started.")
@@ -48,11 +48,14 @@ class TelegramBot:
         return ConversationHandler.END
 
     def status(self, update, context):
-        update.message.reply_text(f"Admin User: {self.admin_user}")
+        if not self.admin_user:
+            update.message.reply_text("No one rules this table - yet.")
+        else:
+            update.message.reply_text(f"Admin User: {self.admin_user}")
 
     def button(self, update, context):
         command = update.message.text
-        logger.info(f"UserInput received: {command}")
+        logger.debug(f"UserInput received: {command}")
         self.postman.send(Topics.INPUT, command)
 
     def help(self, update, context):
@@ -89,6 +92,8 @@ class TelegramBot:
             logger.debug(f"UserFeedback received. Now printing out: {msg}")
             if self.admin_user:
                 self.bot.send_message(chat_id=self.admin_user, text=msg)
+            else:
+                logger.warning("No user registered as admin. Drop message!")
 
     def run(self):
         # Create the Updater and pass it your bot's token.
