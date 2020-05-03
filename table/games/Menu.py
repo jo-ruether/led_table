@@ -5,6 +5,8 @@ from table.games.Clock import Clock
 from table.games.Tetris import Tetris
 from table.games.Spotify import Spotify
 
+from table.Postman import Topics
+
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -58,7 +60,7 @@ class Menu(Game):
         return True
 
     def read_input(self):
-        post = self.postman.request('UserInput')
+        post = self.postman.request(Topics.INPUT)
         if post:
             cmd = post['message']
 

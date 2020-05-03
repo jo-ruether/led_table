@@ -1,8 +1,9 @@
 import time
-from table.games.Game import Game
 from random import randint
 from time import sleep
 
+from table.games.Game import Game
+from table.Postman import Topics
 
 class Snake(Game):
     # Define snake, fruit and background color
@@ -86,7 +87,7 @@ class Snake(Game):
     def update_direction(self):
         """ Reacts to commands in the input queue and updates the direction accordingly
         """
-        post = self.postman.request('UserInput')
+        post = self.postman.request(Topics.INPUT)
         if post:
             cmd = post['message']
             # Change snake's direction according to input
@@ -117,6 +118,8 @@ class Snake(Game):
             self.update_pixel_matrix()
             self.print_world()
             time.sleep(0.2)
+        self.postman.send(Topics.OUTPUT, f"Well done. Your snake grew up to a size of "
+                                         f"{len(self.snake)}")
         self.game_over_animation()
         return False
 

@@ -1,8 +1,9 @@
-from table.games.Game import Game
 import random
 import numpy as np
 from time import time, sleep
 
+from table.games.Game import Game
+from table.Postman import Topics
 
 class Tetris(Game):
     def __init__(self, postman, output):
@@ -16,7 +17,7 @@ class Tetris(Game):
 
     def check_user_input(self):
         """ Asks postman for user input """
-        post = self.postman.request('UserInput')
+        post = self.postman.request(Topics.INPUT)
         while post:
             cmd = post['message']
             if cmd == 'left':
@@ -27,7 +28,7 @@ class Tetris(Game):
                 self.current_block.rotate()
 
             # Check if there is even more to read
-            post = self.postman.request('UserInput')
+            post = self.postman.request(Topics.INPUT)
 
     def start(self):
         self.running = True
@@ -65,7 +66,7 @@ class Tetris(Game):
 
         # Send score to user
         congratulations = "Well done. You scored {0} points!".format(self.score)
-        self.postman.send('UserFeedback', congratulations)
+        self.postman.send(Topics.OUTPUT, congratulations)
 
         # Block couldn't dissolve
         self.game_over_animation()

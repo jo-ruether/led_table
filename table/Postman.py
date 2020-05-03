@@ -1,18 +1,21 @@
 from queue import Queue
 from datetime import datetime
+from enum import Enum, auto
 
-topics = ['Output', 'UserInput', 'Settings', 'UserFeedback']
 
-# TODO refactor topics
+class Topics(Enum):
+    """
+    This class only defines the available topics. The actually value of the constant doesn't
+    matter it is only important that the value is unique. However, values where chosen to be
+    compatible with old "string identifiers"
+    """
 
-# class Topics:
-#    # Messages send TO the user
-#    OUTPUT = 0
-#    # Controller commands or input received FROM the user
-#    INPUT = 0
-#    SETTINGS = 0
+    # Messages send TO the user
+    OUTPUT = auto()
+    # Controller commands or input received FROM the user
+    INPUT = auto()
+    SETTINGS = auto()
 
-# TODO make messages as class not as dict! ?? Less flexibility
 
 class Postman:
     """
@@ -28,10 +31,8 @@ class Postman:
         # Stores messages in a queue accessible via the topic name
         self.mailbox = dict()
 
-        # members = [attr for attr in dir(example) if
-        #           not callable(getattr(example, attr)) and not attr.startswith("__")]
-        for key in topics:
-            self.mailbox[key] = Queue(maxsize=3)
+        for topic in Topics:
+            self.mailbox[topic] = Queue(maxsize=3)
 
     def send(self, topic, msg):
         """
@@ -43,8 +44,8 @@ class Postman:
         sender = 'Unknown'
 
         if topic in self.mailbox:
-            package = dict(sender=sender, \
-                           timestamp=datetime.now(), \
+            package = dict(sender=sender,
+                           timestamp=datetime.now(),
                            message=msg)
             self.mailbox[topic].put(package)
             return True

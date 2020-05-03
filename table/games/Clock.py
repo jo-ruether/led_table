@@ -1,8 +1,9 @@
 import time
-from table.games.Game import Game
 import numpy as np
 from time import strftime
 
+from table.games.Game import Game
+from table.Postman import Topics
 
 class Clock(Game):
     def __init__(self, postman, output):
@@ -14,6 +15,13 @@ class Clock(Game):
 
         self.color_offset = 1
         self.color_roll = np.concatenate((np.arange(255), np.arange(255, 0, -1)))
+
+    def check_user_input(self):
+        """ Asks postman for user input """
+        post = self.postman.request(Topics.INPUT)
+        if post:
+            # Exit when there is any input during ColorFade
+            self.running = False
 
     def update_pixel_matrix(self, time_string):
         """Prepares the matrix, displaying all four digits
@@ -41,11 +49,15 @@ class Clock(Game):
     def start(self):
         """ Runs the clock
         """
-        while True:
+        self.running = True
+
+        while self.running:
+            self.check_user_input()
+
             time_string = strftime("%H%M")
             self.update_pixel_matrix(time_string)
             self.output.show()
-            time.sleep(0.02)
+            time.sleep(0.1)
 
     # TODO make static but how to access colors then?
     def draw_icon(self, output):

@@ -10,8 +10,6 @@ try:
 except (ImportError, NotImplementedError):
     from table.OutputSim import OutputSim
 
-
-
 import logging
 logging.basicConfig(level=logging.DEBUG,
                     format='%(process)d-%(levelname)s-%(message)s')

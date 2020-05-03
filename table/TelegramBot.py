@@ -1,10 +1,9 @@
-from telegram.ext import Updater, InlineQueryHandler, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
-from telegram import InlineKeyboardMarkup, ReplyKeyboardMarkup
-from telegram import Bot
-from telegram.ext import ConversationHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
+from telegram import Bot, ReplyKeyboardMarkup
+
+from table.Postman import Topics
 
 import logging
-
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -54,7 +53,7 @@ class TelegramBot:
     def button(self, update, context):
         command = update.message.text
         logger.info(f"UserInput received: {command}")
-        self.postman.send('UserInput', command)
+        self.postman.send(Topics.INPUT, command)
 
     def help(self, update, context):
         update.message.reply_text("Part of being a bot is about helping humans. \n\n"
@@ -84,7 +83,7 @@ class TelegramBot:
 
     def check_user_feedback(self,):
         """ Asks postman for user feedback to be printed out"""
-        post = self.postman.request('UserFeedback')
+        post = self.postman.request(Topics.OUTPUT)
         if post:
             msg = post['message']
             logger.debug(f"UserFeedback received. Now printing out: {msg}")

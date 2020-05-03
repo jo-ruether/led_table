@@ -1,7 +1,8 @@
-from table.games.Game import Game
 from time import time
 from math import sqrt
 
+from table.games.Game import Game
+from table.Postman import Topics
 
 class Colorfade(Game):
     def __init__(self, postman, output):
@@ -15,19 +16,16 @@ class Colorfade(Game):
         # Center of color cycle (x,y)
         self.center = (5.5, 5.5)
 
-        # Is set to false when program should exit
-        self.running = True
-
     def check_user_input(self):
         """ Asks postman for user input """
-        post = self.postman.request('UserInput')
+        post = self.postman.request(Topics.INPUT)
         if post:
             # Exit when there is any input during ColorFade
             self.running = False
 
     def check_settings(self):
         """ Asks postman for set commands"""
-        post = self.postman.request('Settings')
+        post = self.postman.request(Topics.SETTINGS)
         if post:
             cmd = post['message']
 
@@ -36,18 +34,20 @@ class Colorfade(Game):
                 try:
                     value = float(cmd[1])
                     self.speed = value
-                    self.postman.send('UserFeedback', "Speed set!")
+                    self.postman.send(Topics.OUTPUT, "Speed set!")
                 except ValueError:
-                    self.postman.send('UserFeedback', "Value is not a convertible!")
+                    self.postman.send(Topics.OUTPUT, "Value is not a convertible!")
             elif cmd[0] == "saturation":
                 try:
                     value = float(cmd[1])
                     self.saturation = value
-                    self.postman.send('UserFeedback', "Saturation set!")
+                    self.postman.send(Topics.OUTPUT, "Saturation set!")
                 except ValueError:
-                    self.postman.send('UserFeedback', "Value is not a convertible!")
+                    self.postman.send(Topics.OUTPUT, "Value is not a convertible!")
 
     def start(self):
+        self.running = True
+
         # Retrieve dimensions of
         columns = self.output.columns
         rows = self.output.rows

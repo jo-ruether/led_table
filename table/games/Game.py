@@ -5,6 +5,7 @@ class Game(ABC):
     def __init__(self, postman, output):
         self.postman = postman
         self.output = output
+        self.running = False
 
     @abstractmethod
     def start(self):

@@ -6,6 +6,7 @@ import numpy as np
 import json
 
 from table.games.Game import Game
+from table.Postman import Topics
 
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -39,12 +40,12 @@ class Spotify(Game):
                 Authorized Spotify object to access spotify API.
         """
         # Request username
-        self.postman.send('UserFeedback', "Please send me your Spotify user name.")
+        self.postman.send(Topics.OUTPUT, "Please send me your Spotify user name.")
 
         # Wait until username is received
-        post = self.postman.request('UserInput')
+        post = None
         while not post:
-            post = self.postman.request('UserInput')
+            post = self.postman.request(Topics.INPUT)
         username = post['message']
 
         cache_path = ".cache-" + username
@@ -67,12 +68,12 @@ class Spotify(Game):
         else:
             logger.debug("No cached spotify token found. Requesting authorization.")
             url = sp_oauth.get_authorize_url()
-            self.postman.send('UserFeedback', f"Please open this url in your browser: {url}")
+            self.postman.send(Topics.OUTPUT, f"Please open this url in your browser: {url}")
 
             # Wait for return url
-            post = self.postman.request('UserInput')
+            post = None
             while not post:
-                post = self.postman.request('UserInput')
+                post = self.postman.request(Topics.INPUT)
 
             url = post['message']
             code = url.split("?code=")[-1]
@@ -98,6 +99,8 @@ class Spotify(Game):
         self.output.show()
 
     def draw_icon(self, output):
+        super().draw_icon(output)
+
         file = np.load("spotify_logo.npz")
-        output.pixel_matrix = file["spotify_logo"]
+        output.pixel_matrix[1:11, 1:11] = file["spotify_logo"][1:11, 1:11]
         output.show()
