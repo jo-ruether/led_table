@@ -4,6 +4,8 @@ import json
 from table.TelegramBot import TelegramBot
 from table.games.Menu import Menu
 from table.Postman import Postman
+from table.ConfigHandler import ConfigHandler
+
 
 try:
     from table.OutputTable import OutputTable
@@ -15,17 +17,17 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(process)d-%(levelname)s-%(message)s')
 
 
-def application(postman, output):
+def application(postman, output, config_handler):
     # start() function returns if the game is over
     # Then return from the application so that the thread can terminate 
-    menu = Menu(postman, output)
+    menu = Menu(postman, output, config_handler)
     menu.start()
 
     output.emptyMatrix()
 
 
-def telegram(postman, token):
-    bot = TelegramBot(postman, token)
+def telegram(postman, config_handler):
+    bot = TelegramBot(postman, config_handler)
     bot.run()
 
 # def inputs(input_q, b_pins=[7, 24]):
@@ -67,11 +69,10 @@ def telegram(postman, token):
 #         return False
 
 
-with open('config.json') as config_file:
-    config = json.load(config_file)
+config_handler = ConfigHandler("config.json")
 
 # Create output for matrix rendering
-if config['table_present']:
+if config_handler.get_value("General", "table_present"):
     try:
         output = OutputTable()
     except:
@@ -83,10 +84,10 @@ else:
 # Create postman for thread communication
 postman = Postman()
 
-telegram_thread = Thread(target=telegram, args=(postman, config['token']), daemon=True)
+telegram_thread = Thread(target=telegram, args=(postman, config_handler), daemon=True)
 telegram_thread.start()
 
-app_thread = Thread(target=application, args=(postman, output))
+app_thread = Thread(target=application, args=(postman, output, config_handler))
 app_thread.start()
 
 app_thread.join()

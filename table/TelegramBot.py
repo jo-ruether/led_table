@@ -12,12 +12,13 @@ logger = logging.getLogger(__name__)
 class TelegramBot:
     REGISTER = range(1)
 
-    def __init__(self, postman, token, password='table'):
+    def __init__(self, postman, config_handler):
         self.postman = postman
-        self.token = token
-        self.bot = Bot(token)
-        self.password = password
-        self.admin_user = None
+        self.config_handler = config_handler
+        self.token = config_handler.get_value("TelegramBot", "token")
+        self.bot = Bot(self.token)
+        self.password = config_handler.get_value("TelegramBot", "password")
+        self.admin_user = config_handler.get_value("TelegramBot", "admin_user")
 
     def start(self, update, context):
         logger.info("TelegramBot is started.")
@@ -30,6 +31,7 @@ class TelegramBot:
         if update.message.text == self.password:
             # Correct password, now register
             self.admin_user = update.message.from_user.id
+            self.config_handler.set_value("TelegramBot", "admin_user", self.admin_user)
 
             logger.info(f"Registered new admin: {update.message.from_user.username}")
             update.message.reply_text(f"Registration successful! From now on I only listen to "

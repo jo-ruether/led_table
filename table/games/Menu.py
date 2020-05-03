@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class Menu(Game):
-    def __init__(self, postman, output):
+    def __init__(self, postman, output, config_handler):
         super().__init__(postman, output)
 
         # Track if a gaming is currently running
@@ -22,7 +22,7 @@ class Menu(Game):
 
         # List of available games
         self.current_selection = 0
-        self.games = [Spotify(postman, output),
+        self.games = [Spotify(postman, output, config_handler),
                       Snake(postman, output),
                       Colorfade(postman, output),
                       Clock(postman, output),

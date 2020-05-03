@@ -15,19 +15,18 @@ logger = logging.getLogger(__name__)
 
 
 class Spotify(Game):
-    def __init__(self, postman, output):
+    def __init__(self, postman, output, config_handler):
         super().__init__(postman, output)
 
-        with open('config.json') as config_file:
-            config = json.load(config_file)
-
-        self.client_id = config["spotify_client_id"]
-        self.client_secret = config["spotify_client_secret"]
+        self.client_id = config_handler.get_value("Spotify", "client_id")
+        self.client_secret = config_handler.get_value("Spotify", "client_secret")
         self.scope = 'user-read-playback-state'
         self.redirect_uri = "https://www.google.de"
         self.spotifyObject = None
 
     def start(self):
+        self.output.empty_matrix()
+
         self.spotifyObject = self.connect_to_spotify()
 
         while True:
