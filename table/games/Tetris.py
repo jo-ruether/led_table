@@ -11,7 +11,7 @@ class Tetris(Game):
         # Stores landed blocks as RGB values
         self.landed_blocks = np.zeros([self.output.rows, self.output.columns, 3])
 
-        self.running = True
+        self.running = False
         self.score = 0
         self.current_block = None
 
@@ -32,7 +32,11 @@ class Tetris(Game):
 
     def start(self):
         self.running = True
+
+        # Init variables
         t_last_falling = 0
+        self.landed_blocks = np.zeros([self.output.rows, self.output.columns, 3])
+        self.score = 0
         self.current_block = Tetromino(self, (0, self.output.columns // 2 - 1))
         self.output.empty_matrix()
 
@@ -50,6 +54,10 @@ class Tetris(Game):
                     else:
                         # Create new block
                         self.current_block = Tetromino(self, (0, self.output.columns // 2 - 1))
+                        # Immediately break if there is no space left
+                        if not self.current_block.check_validity(self.current_block.origin,
+                                                                 self.current_block.pixels):
+                            break
 
             # Render matrix (order important!)
             self.render()
@@ -91,6 +99,7 @@ class Tetris(Game):
             self.output.empty_matrix()
             sleep(.3)
             self.render()
+            self.output.show()
             sleep(.3)
 
     def render(self):
@@ -146,7 +155,7 @@ class Tetromino:
         else:
             self. color = color
 
-    def _check_validity(self, intended_origin, intended_pixels):
+    def check_validity(self, intended_origin, intended_pixels):
         """  Check if block could be moved to an intended position
 
         Args:
@@ -194,7 +203,7 @@ class Tetromino:
             rotated_pixel = (-pixel[1], pixel[0])
             new_pixels.add(rotated_pixel)
 
-        if self._check_validity(self.origin, new_pixels):
+        if self.check_validity(self.origin, new_pixels):
             self.pixels = new_pixels
             return True
         else:
@@ -208,7 +217,7 @@ class Tetromino:
         """
         new_origin = (self.origin[0], self.origin[1] - 1)
 
-        if self._check_validity(new_origin, self.pixels):
+        if self.check_validity(new_origin, self.pixels):
             self.origin = new_origin
             return True
         else:
@@ -222,7 +231,7 @@ class Tetromino:
         """
         new_origin = (self.origin[0], self.origin[1] + 1)
 
-        if self._check_validity(new_origin, self.pixels):
+        if self.check_validity(new_origin, self.pixels):
             self.origin = new_origin
             return True
         else:
@@ -236,7 +245,7 @@ class Tetromino:
         """
         new_origin = (self.origin[0]+1, self.origin[1])
 
-        if self._check_validity(new_origin, self.pixels):
+        if self.check_validity(new_origin, self.pixels):
             self.origin = new_origin
             return True
         else:
@@ -251,7 +260,7 @@ class Tetromino:
         Returns:
             bool: False, if dissolving would end in invalid move, e.g. game is over.
         """
-        if not self._check_validity(self.origin, self.pixels):
+        if not self.check_validity(self.origin, self.pixels):
             return False
 
         for pixel in self.pixels:
