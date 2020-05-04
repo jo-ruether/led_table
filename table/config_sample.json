@@ -1,5 +1,15 @@
 {
-    "token": "873643803:AAH-u1t5m0hc_EvKeCzi7zPYbjQneDUPkIM",
-    "hardware_buttons": false,
-    "table_present": false
+    "General": {
+        "hardware_buttons": false,
+        "table_present": false
+    },
+    "Spotify": {
+        "client_id": "XXXXXXXXXXXXXXXXXXXXXXXX",
+        "client_secret": "XXXXXXXXXXXXXXXXXXXXXXXX",
+        "redirect_url": "https://www.google.de"
+    },
+    "TelegramBot": {
+        "password": "table",
+        "token": "XXXXXXXXXXXXXXXXXXXXXXXX"
+    }
 }
