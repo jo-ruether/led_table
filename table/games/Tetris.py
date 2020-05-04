@@ -5,6 +5,7 @@ from time import time, sleep
 from table.games.Game import Game
 from table.Postman import Topics
 
+
 class Tetris(Game):
     def __init__(self, postman, output):
         super().__init__(postman, output)
@@ -73,7 +74,7 @@ class Tetris(Game):
         self.running = False
 
         # Send score to user
-        congratulations = "Well done. You scored {0} points!".format(self.score)
+        congratulations = f"Well done. You scored {self.score} points!"
         self.postman.send(Topics.OUTPUT, congratulations)
 
         # Block couldn't dissolve
@@ -82,7 +83,6 @@ class Tetris(Game):
         # The Game has ended!
         return True
 
-    # Todo Testing still missing as this is not possible due to telegram latency
     def remove_full_rows(self):
         for index, row in enumerate(self.landed_blocks):
             # Check if this row is full

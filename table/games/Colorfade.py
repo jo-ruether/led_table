@@ -4,6 +4,7 @@ from math import sqrt
 from table.games.Game import Game
 from table.Postman import Topics
 
+
 class Colorfade(Game):
     def __init__(self, postman, output):
         super().__init__(postman, output)

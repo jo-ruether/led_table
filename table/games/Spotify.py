@@ -29,6 +29,9 @@ class Spotify(Game):
 
         self.spotifyObject = self.connect_to_spotify()
 
+        self.postman.send(Topics.OUTPUT, "I am connected to Spotify now. Let's listen to some "
+                                         "awesome tunes. 🎵")
+
         while True:
             self.print_cover()
 
@@ -68,6 +71,7 @@ class Spotify(Game):
             logger.debug("No cached spotify token found. Requesting authorization.")
             url = sp_oauth.get_authorize_url()
             self.postman.send(Topics.OUTPUT, f"Please open this url in your browser: {url}")
+            self.postman.send(Topics.OUTPUT, "Then send me the complete url you are redirected to.")
 
             # Wait for return url
             post = None
