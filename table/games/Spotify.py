@@ -3,7 +3,6 @@ import requests
 import io
 from PIL import Image
 import numpy as np
-import json
 
 from table.games.Game import Game
 from table.Postman import Topics

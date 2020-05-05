@@ -4,6 +4,12 @@ from time import time, sleep
 
 from table.games.Game import Game
 from table.Postman import Topics
+from table.utils.Commands import CMD
+
+import logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 class Tetris(Game):
@@ -21,11 +27,11 @@ class Tetris(Game):
         post = self.postman.request(Topics.INPUT)
         while post:
             cmd = post['message']
-            if cmd == 'left':
+            if cmd == CMD.LEFT:
                 self.current_block.move_left()
-            elif cmd == 'right':
+            elif cmd == CMD.RIGHT:
                 self.current_block.move_right()
-            elif cmd == 'action':
+            elif cmd == CMD.X:
                 self.current_block.rotate()
 
             # Check if there is even more to read

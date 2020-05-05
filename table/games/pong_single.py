@@ -73,9 +73,9 @@ class Pong():
         if self.input_q.qsize() > 0:
             input = self.input_q.get()
             self.input_q.task_done()
-            if input == 'right':
+            if input == CMD.RIGHT:
                 self.racket = [(max(coord[0]-1, 0+i), coord[1]) for i, coord in enumerate(self.racket)]
-            elif input == 'left':
+            elif input == CMD.LEFT:
                 self.racket = [(min(coord[0]+1, self.world_dim[0]-3+i), coord[1]) for i, coord in enumerate(self.racket)]
 
     def update_pixelMatrix(self):

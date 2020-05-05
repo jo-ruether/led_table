@@ -6,6 +6,7 @@ from table.games.Menu import Menu
 from table.Postman import Postman
 from table.ConfigHandler import ConfigHandler
 
+from table.UsbInput import listen_to_usb_input
 
 try:
     from table.OutputTable import OutputTable
@@ -46,12 +47,12 @@ def telegram(postman, config_handler):
 #     while True:
 #         if GPIO.input(b_pins[0]):
 #             if debounce(b_pins[0], last_pressed):
-#                 input_q.put_nowait('right')
-#                 print('right')
+#                 input_q.put_nowait(CMD.RIGHT)
+#                 print(CMD.RIGHT)
 #         elif GPIO.input(b_pins[1]):
 #             if debounce(b_pins[1], last_pressed):
-#                 input_q.put_nowait('left')
-#                 print('left')
+#                 input_q.put_nowait(CMD.LEFT)
+#                 print(CMD.LEFT)
 #         sleep(0.05)
 #
 #
@@ -83,6 +84,9 @@ else:
 
 # Create postman for thread communication
 postman = Postman()
+
+usb_controller_thread = Thread(target=listen_to_usb_input, args=(postman, config_handler))
+usb_controller_thread.start()
 
 telegram_thread = Thread(target=telegram, args=(postman, config_handler), daemon=True)
 telegram_thread.start()

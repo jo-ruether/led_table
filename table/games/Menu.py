@@ -6,6 +6,7 @@ from table.games.Tetris import Tetris
 from table.games.Spotify import Spotify
 
 from table.Postman import Topics
+from table.utils.Commands import CMD
 
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -64,11 +65,11 @@ class Menu(Game):
         if post:
             cmd = post['message']
 
-            if cmd == "left":
+            if cmd == CMD.LEFT:
                 self.move_left()
-            elif cmd == "right":
+            elif cmd == CMD.RIGHT:
                 self.move_right()
-            elif cmd == "action":
+            elif cmd == CMD.X:
                 self.start_game()
 
     def start(self):

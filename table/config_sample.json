@@ -11,5 +11,8 @@
     "TelegramBot": {
         "password": "table",
         "token": "XXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    "UsbInput": {
+        "device_path": "/dev/input/event7"
     }
 }

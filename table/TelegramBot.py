@@ -2,6 +2,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Conve
 from telegram import Bot, ReplyKeyboardMarkup
 
 from table.Postman import Topics
+from table.utils.Commands import CMD
 
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -58,7 +59,15 @@ class TelegramBot:
     def button(self, update, context):
         command = update.message.text
         logger.debug(f"UserInput received: {command}")
-        self.postman.send(Topics.INPUT, command)
+
+        if command == CMD.LEFT:
+            self.postman.send(Topics.INPUT, CMD.LEFT)
+        elif command == CMD.RIGHT:
+            self.postman.send(Topics.INPUT, CMD.RIGHT)
+        elif command == CMD.X:
+            self.postman.send(Topics.INPUT, CMD.X)
+        else:
+            self.postman.send(Topics.INPUT, command)
 
     def help(self, update, context):
         update.message.reply_text("Part of being a bot is about helping humans. \n\n"

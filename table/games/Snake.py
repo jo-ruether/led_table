@@ -4,6 +4,8 @@ from time import sleep
 
 from table.games.Game import Game
 from table.Postman import Topics
+from table.utils.Commands import CMD
+
 
 class Snake(Game):
     # Define snake, fruit and background color
@@ -91,9 +93,9 @@ class Snake(Game):
         if post:
             cmd = post['message']
             # Change snake's direction according to input
-            if cmd == 'right':
+            if cmd == CMD.RIGHT:
                 self.direction = (self.direction + 1) % 4
-            elif cmd == 'left':
+            elif cmd == CMD.LEFT:
                 self.direction = (self.direction - 1) % 4
 
     def game_over_animation(self):
