@@ -60,11 +60,11 @@ class TelegramBot:
         command = update.message.text
         logger.debug(f"UserInput received: {command}")
 
-        if command == CMD.LEFT:
+        if command == "left":
             self.postman.send(Topics.INPUT, CMD.LEFT)
-        elif command == CMD.RIGHT:
+        elif command == "right":
             self.postman.send(Topics.INPUT, CMD.RIGHT)
-        elif command == CMD.X:
+        elif command == "action":
             self.postman.send(Topics.INPUT, CMD.X)
         else:
             self.postman.send(Topics.INPUT, command)
