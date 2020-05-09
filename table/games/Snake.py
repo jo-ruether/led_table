@@ -97,6 +97,8 @@ class Snake(Game):
                 self.direction = (self.direction + 1) % 4
             elif cmd == CMD.LEFT:
                 self.direction = (self.direction - 1) % 4
+            elif cmd == CMD.START:
+                self.active = False
 
     def game_over_animation(self):
         """ Animation to show when the game is over
