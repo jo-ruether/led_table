@@ -31,8 +31,12 @@ class Tetris(Game):
                 self.current_block.move_left()
             elif cmd == CMD.RIGHT:
                 self.current_block.move_right()
+            elif cmd == CMD.DOWN:
+                self.current_block.fall()
             elif cmd == CMD.X:
                 self.current_block.rotate()
+            elif cmd == CMD.START:
+                self.running = False
 
             # Check if there is even more to read
             post = self.postman.request(Topics.INPUT)
