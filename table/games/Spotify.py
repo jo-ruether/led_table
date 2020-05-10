@@ -100,18 +100,21 @@ class Spotify(Game):
     def print_cover(self):
         track = self.spotifyObject.current_user_playing_track()
 
-        if track is None:
-            logger.debug("No track is playing.")
-            return
+        if track is not None:
+            try:
+                cover_art_url = track['item']['album']['images'][0]['url']
+            except TypeError:
+                # Sometime the API returns a NoneType when changing the track
+                # Just waiting for the next iterations is fine.
+                logger.debug("TypeError when retrieving album url.")
+                return
 
-        cover_art_url = track['item']['album']['images'][0]['url']
+            i = requests.get(cover_art_url)
+            img = Image.open(io.BytesIO(i.content)).convert("RGB")
+            img = img.resize((12, 12), Image.ANTIALIAS)
 
-        i = requests.get(cover_art_url)
-        img = Image.open(io.BytesIO(i.content)).convert("RGB")
-        img = img.resize((12, 12), Image.ANTIALIAS)
-
-        self.output.pixel_matrix = np.array(img)
-        self.output.show()
+            self.output.pixel_matrix = np.array(img)
+            self.output.show()
 
     def read_user_input(self):
         post = self.postman.request(Topics.INPUT)
@@ -133,7 +136,6 @@ class Spotify(Game):
 
             # Check if there is even more to read
             post = self.postman.request(Topics.INPUT)
-
 
     def draw_icon(self, output):
         super().draw_icon(output)
