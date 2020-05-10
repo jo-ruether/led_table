@@ -23,6 +23,8 @@ class OutputTable(Output):
         return value
 
     def show(self):
+        super().show()
+
         for id_row, id_col in np.ndindex(self.pixel_matrix.shape[0:2]):
             led_position = self.matrix_index_to_led_number(id_row, id_col)
             self.pixels[led_position] = self.pixel_matrix[id_row, id_col].astype('uint8')

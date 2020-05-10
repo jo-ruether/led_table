@@ -8,7 +8,13 @@ class Output(ABC):
         self.rows = rows
         self.columns = columns
 
+        self.brightness = 0.8
+
+        # RGB matrix set by the games
         self.pixel_matrix = np.zeros([rows, columns, 3], dtype=np.uint8)
+        # RGB matrix corrected by a specified brightness value
+        self.pixel_matrix_corrected = np.zeros([rows, columns, 3], dtype=np.uint8)
+
         self.colormap = {
                             "blue": [66, 133, 244],
                             "red": [219, 68, 55],
@@ -39,7 +45,9 @@ class Output(ABC):
 
     @abstractmethod
     def show(self):
-        pass
+        # Apply brightness settings
+        # Brightness formula (0.2126 * R + 0.7152 * G + 0.0722 * B)
+        self.pixel_matrix_corrected = self.pixel_matrix * self.brightness
 
     def empty_matrix(self):
         """

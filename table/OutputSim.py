@@ -11,6 +11,8 @@ class OutputSim(Output):
         self.columns = columns
 
     def show(self):
+        super().show()
+
         # Copy pixel_matrix into OpenCV-compatible image
         img = np.zeros((self.rows, self.columns, 3), dtype=np.uint8)
         for r in range(self.rows):
