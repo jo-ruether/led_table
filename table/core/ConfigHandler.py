@@ -10,7 +10,7 @@ class ConfigHandler:
     def __init__(self, filename="config.json"):
         self.filename = filename
 
-        with open('config.json') as config_file:
+        with open(filename) as config_file:
             self.config = json.load(config_file)
 
     def get_value(self, section, key):

@@ -2,7 +2,7 @@ from time import time
 from math import sqrt
 
 from table.games.Game import Game
-from table.Postman import Topics
+from table.core.Postman import Topics
 
 
 class Colorfade(Game):

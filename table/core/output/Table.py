@@ -1,10 +1,10 @@
 import board
 import neopixel
-from table.Output import Output
+from table.core.output.Output import Output
 import numpy as np
 
 
-class OutputTable(Output):
+class Table(Output):
     def __init__(self, rows=12, columns=12):
         super().__init__(rows=rows, columns=columns)
         self.pixels = neopixel.NeoPixel(board.D18, rows*columns, brightness=0.2,

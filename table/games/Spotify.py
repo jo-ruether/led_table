@@ -5,7 +5,7 @@ from PIL import Image
 import numpy as np
 
 from table.games.Game import Game
-from table.Postman import Topics
+from table.core.Postman import Topics
 from table.utils.Commands import CMD
 
 import logging
@@ -140,6 +140,6 @@ class Spotify(Game):
     def draw_icon(self, output):
         super().draw_icon(output)
 
-        file = np.load("spotify_logo.npz")
+        file = np.load("utils/spotify_logo.npz")
         output.pixel_matrix[1:11, 1:11] = file["spotify_logo"][1:11, 1:11]
         output.show()

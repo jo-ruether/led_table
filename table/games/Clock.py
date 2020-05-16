@@ -3,7 +3,7 @@ import numpy as np
 from time import strftime
 
 from table.games.Game import Game
-from table.Postman import Topics
+from table.core.Postman import Topics
 
 class Clock(Game):
     def __init__(self, postman, output):
@@ -11,7 +11,7 @@ class Clock(Game):
 
         self.num2words = {'0': 'zero', '1': 'one', '2': 'two', '3': 'three', '4': 'four',
                           '5': 'five', '6': 'six', '7': 'seven', '8': 'eight', '9': 'nine'}
-        self.digits = np.load('digits.npz')
+        self.digits = np.load('utils/digits.npz')
 
         self.color_offset = 1
         self.color_roll = np.concatenate((np.arange(255), np.arange(255, 0, -1)))

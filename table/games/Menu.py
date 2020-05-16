@@ -5,7 +5,7 @@ from table.games.Clock import Clock
 from table.games.Tetris import Tetris
 from table.games.Spotify import Spotify
 
-from table.Postman import Topics
+from table.core.Postman import Topics
 from table.utils.Commands import CMD
 
 import logging

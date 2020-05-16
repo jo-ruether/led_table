@@ -1,9 +1,9 @@
-from table.Output import Output
+from table.core.output.Output import Output
 import numpy as np
 import cv2
 
 
-class OutputSim(Output):
+class Simulator(Output):
     def __init__(self, rows=12, columns=12):
         super().__init__(rows=rows, columns=columns)
 

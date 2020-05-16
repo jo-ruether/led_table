@@ -3,7 +3,7 @@ from random import randint
 from time import sleep
 
 from table.games.Game import Game
-from table.Postman import Topics
+from table.core.Postman import Topics
 from table.utils.Commands import CMD
 
 

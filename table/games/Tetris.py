@@ -3,7 +3,7 @@ import numpy as np
 from time import time, sleep
 
 from table.games.Game import Game
-from table.Postman import Topics
+from table.core.Postman import Topics
 from table.utils.Commands import CMD
 
 import logging
