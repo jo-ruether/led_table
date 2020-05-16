@@ -2,8 +2,8 @@ import random
 import numpy as np
 from time import time, sleep
 
-from table.games.Game import Game
-from table.core.Postman import Topics, CMD
+from games.Game import Game
+from core.Postman import Topics, CMD
 
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',

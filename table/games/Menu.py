@@ -1,12 +1,12 @@
-from table.games.Snake import Snake
-from table.games.Game import Game
-from table.games.Colorfade import Colorfade
-from table.games.Clock import Clock
-from table.games.Tetris import Tetris
-from table.games.Spotify import Spotify
-from table.games.Pong import Pong
+from games.Snake import Snake
+from games.Game import Game
+from games.Colorfade import Colorfade
+from games.Clock import Clock
+from games.Tetris import Tetris
+from games.Spotify import Spotify
+from games.Pong import Pong
 
-from table.core.Postman import Topics, CMD
+from core.Postman import Topics, CMD
 
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',

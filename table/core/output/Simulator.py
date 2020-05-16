@@ -1,4 +1,4 @@
-from table.core.output.Output import Output
+from core.output.Output import Output
 import numpy as np
 import cv2
 

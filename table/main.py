@@ -1,8 +1,8 @@
 from threading import Thread
 
-from table.core.ConfigHandler import ConfigHandler
-from table.core.Postman import Postman
-from table.games.Menu import Menu
+from core.ConfigHandler import ConfigHandler
+from core.Postman import Postman
+from games.Menu import Menu
 
 import logging
 logging.basicConfig(level=logging.DEBUG,
@@ -17,24 +17,24 @@ postman = Postman()
 
 # Create output for matrix rendering
 if config_handler.get_value("General", "table_present"):
-    from table.core.output.Table import Table
+    from core.output.Table import Table
 
     output = Table()
 else:
-    from table.core.output.Simulator import Simulator
+    from core.output.Simulator import Simulator
 
     output = Simulator()
 
 # Listen to USB controller if enabled
 if config_handler.get_value("UsbInput", "enable"):
-    from table.core.UsbInput import listen_to_usb_input
+    from core.UsbInput import listen_to_usb_input
 
     usb_controller_thread = Thread(target=listen_to_usb_input, args=(postman, config_handler))
     usb_controller_thread.start()
 
 # Start TelegramBot if enabled
 if config_handler.get_value("TelegramBot", "enable"):
-    from table.core.TelegramBot import TelegramBot
+    from core.TelegramBot import TelegramBot
 
     bot = TelegramBot(postman, config_handler)
     telegram_thread = Thread(target=bot.run, args=(), daemon=True)

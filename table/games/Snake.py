@@ -2,8 +2,8 @@ import time
 from random import randint
 from time import sleep
 
-from table.games.Game import Game
-from table.core.Postman import Topics, CMD
+from games.Game import Game
+from core.Postman import Topics, CMD
 
 
 class Snake(Game):
