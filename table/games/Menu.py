@@ -5,8 +5,7 @@ from table.games.Clock import Clock
 from table.games.Tetris import Tetris
 from table.games.Spotify import Spotify
 
-from table.core.Postman import Topics
-from table.utils.Commands import CMD
+from table.core.Postman import Topics, CMD
 
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',

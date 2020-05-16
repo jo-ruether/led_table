@@ -3,8 +3,7 @@ import numpy as np
 from time import time, sleep
 
 from table.games.Game import Game
-from table.core.Postman import Topics
-from table.utils.Commands import CMD
+from table.core.Postman import Topics, CMD
 
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',

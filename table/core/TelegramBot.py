@@ -1,8 +1,7 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
 from telegram import Bot, ReplyKeyboardMarkup
 
-from table.core.Postman import Topics
-from table.utils.Commands import CMD
+from table.core.Postman import Topics, CMD
 
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
