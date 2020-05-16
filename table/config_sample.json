@@ -10,9 +10,11 @@
     },
     "TelegramBot": {
         "password": "table",
-        "token": "XXXXXXXXXXXXXXXXXXXXXXXX"
+        "token": "XXXXXXXXXXXXXXXXXXXXXXXX",
+        "enable": true
     },
     "UsbInput": {
-        "device_path": "/dev/input/event7"
+        "device_path": "/dev/input/event7",
+        "enable": false
     }
 }
