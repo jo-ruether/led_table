@@ -135,7 +135,9 @@ class Snake(Game):
         # dummy fruit
         output.set_value_rgb(3, 4, self.fruit_color)
         # dummy snake
-        output.pixel_matrix[7, 2:6] = self.snake_color
+        output.pixel_matrix[7, 2] = tuple(0.3 * x for x in self.snake_color)
+        output.pixel_matrix[7, 3] = tuple(0.6 * x for x in self.snake_color)
+        output.pixel_matrix[7, 4:6] = self.snake_color
         output.pixel_matrix[8, 5:9] = self.snake_color
         output.pixel_matrix[8, 5:9] = self.snake_color
         output.pixel_matrix[4:9, 8] = self.snake_color

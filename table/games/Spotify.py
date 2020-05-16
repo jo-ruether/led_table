@@ -139,6 +139,6 @@ class Spotify(Game):
     def draw_icon(self, output):
         super().draw_icon(output)
 
-        file = np.load("utils/spotify_logo.npz")
-        output.pixel_matrix[1:11, 1:11] = file["spotify_logo"][1:11, 1:11]
+        logo = np.load("utils/spotify_logo.npy")
+        output.pixel_matrix[1:11, 1:11] = logo
         output.show()
