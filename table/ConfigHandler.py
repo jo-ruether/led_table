@@ -18,7 +18,7 @@ class ConfigHandler:
             value = self.config[section][key]
         except KeyError:
             logger.warning(f"KeyError when trying to access config->{section}->{key}. This means "
-                           f"that the requested config key isn't existing but it mustn't be a "
+                           f"that the requested config key does not exist. This is not necessarily a "
                            f"severe problem. Maybe the key will be created in the following.")
             value = None
 
