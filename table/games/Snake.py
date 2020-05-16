@@ -30,7 +30,6 @@ class Snake(Game):
 
         # Initialize display elements
         self.update_pixel_matrix()
-        self.print_world()
 
     def move_snake(self):
         """ Performs the snake's next step

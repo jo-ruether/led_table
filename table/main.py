@@ -47,4 +47,4 @@ app_thread.start()
 
 # Wait for app thread to join
 app_thread.join()
-logger.info("All threads joind. Exiting.")
+logger.info("All threads joined. Exiting.")
