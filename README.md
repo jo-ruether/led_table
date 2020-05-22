@@ -1,4 +1,4 @@
-**In this repository you find the software running our self-built LED table.**
+This repository contains software to drive games and apps on a 12x12 Matrix of WS2812B-LEDs. It handles different inputs such as USB hardware or Telegram bots and displays the output on a real LED matrix or a simulation.
 
 1. [Features](#features)
 2. [Project description](#project-description)
