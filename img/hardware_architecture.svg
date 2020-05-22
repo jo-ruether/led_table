@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="822.47604"
-     inkscape:cy="431.3438"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="882.01514"
+     inkscape:cy="91.69697"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
         <cc:license
            rdf:resource="http://creativecommons.org/licenses/by-nc/4.0/" />
       </cc:Work>
@@ -551,11 +551,11 @@
          style="fill:#0044aa;stroke-width:13.83286572" />
     </g>
     <g
-       id="g1235"
-       transform="translate(-7.1815476,2.6458333)">
+       id="g1339"
+       transform="translate(2.0791263)">
       <g
          style="stroke-width:6.34724998"
-         transform="matrix(0.04168472,0,0,0.04168472,140.05082,232.33232)"
+         transform="matrix(0.04168472,0,0,0.04168472,134.38118,211.16565)"
          id="g349">
         <circle
            style="fill:#47b0d3;stroke-width:6.34724998"
@@ -575,7 +575,7 @@
            id="path280" />
         <polygon
            style="fill:#cccccc;stroke-width:6.34724998"
-           points="188.772,408 379.168,108.432 171.631,293.421 "
+           points="379.168,108.432 171.631,293.421 188.772,408 "
            id="polygon282" />
         <path
            inkscape:connector-curvature="0"
@@ -584,7 +584,7 @@
            id="path284" />
         <polygon
            style="fill:#e5e5e5;stroke-width:6.34724998"
-           points="188.772,408 379.168,108.432 211.418,310.749 "
+           points="379.168,108.432 211.418,310.749 188.772,408 "
            id="polygon286" />
         <path
            inkscape:connector-curvature="0"
@@ -639,20 +639,139 @@
       </g>
       <text
          id="text1880-7"
-         y="263.06665"
-         x="150.65768"
+         y="241.89998"
+         x="144.98804"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
          xml:space="preserve"><tspan
            style="stroke-width:0.26458332"
-           y="263.06665"
-           x="150.65768"
+           y="241.89998"
+           x="144.98804"
            id="tspan1878-5"
-           sodipodi:role="line">Telegram Bot</tspan></text>
+           sodipodi:role="line">Telegram Server</tspan></text>
     </g>
     <path
-       style="display:inline;opacity:1;fill:#800000;stroke:#0044aa;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 4;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 116.76301,250.27577 H 72.175419"
+       style="display:inline;opacity:1;fill:none;stroke:#0044aa;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 4;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 119.40884,217.76982 C 92.491804,202.8353 80.435896,215.99291 66.883753,234.02279"
        id="path1514-2-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g1312"
+       transform="translate(-3.5544531)">
+      <g
+         transform="translate(-0.26726953,10.423511)"
+         id="g1262">
+        <path
+           id="path1060"
+           d="m 121.68282,285.10722 h 8.47989 c 1.47241,0 2.667,-1.13215 2.667,-2.5318 v -18.74705 c 0,-1.39832 -1.19406,-2.53365 -2.66435,-2.53365 h -8.4799 c -1.47214,0 -2.667,1.13533 -2.667,2.53365 v 18.74679 c 0,1.39912 1.19407,2.53206 2.667,2.53206 m 4.24128,-0.86175 c -0.65961,0 -1.19222,-0.53445 -1.19222,-1.19009 0,-0.65855 0.53182,-1.19116 1.19222,-1.19116 0.65801,0 1.18903,0.53182 1.18903,1.19116 0,0.65643 -0.53181,1.19009 -1.18903,1.19009 m -1.81716,-21.4077 h 3.63193 c 0.14711,0 0.26723,0.10134 0.26723,0.22543 0,0.12462 -0.11959,0.22595 -0.26723,0.22595 h -3.63193 c -0.14552,0 -0.26723,-0.10133 -0.26723,-0.22595 -3e-5,-0.12409 0.12012,-0.22543 0.26723,-0.22543 m -4.04522,2.85697 c 0,-0.21008 0.1786,-0.38047 0.39899,-0.38047 H 131.388 c 0.22093,0 0.39873,0.1696 0.39873,0.38047 v 14.94632 c 0,0.20928 -0.1778,0.37914 -0.39873,0.37914 h -10.92465 c -0.22039,0 -0.39899,-0.16986 -0.39899,-0.37914 v -14.94632"
+           inkscape:connector-curvature="0"
+           style="stroke-width:0.26458332" />
+        <g
+           id="g349-3"
+           transform="matrix(0.01715021,0,0,0.01715021,121.53363,268.81052)"
+           style="display:inline;opacity:1;stroke-width:15.42740822">
+          <circle
+             id="circle276-6"
+             r="256"
+             cy="256"
+             cx="256"
+             style="fill:#47b0d3;stroke-width:15.42740822" />
+          <path
+             id="path278-7"
+             d="M 34.133,256 C 34.133,120.352 139.641,9.364 273.066,0.579 267.424,0.208 261.737,0 256,0 114.615,0 0,114.615 0,256 c 0,141.385 114.615,256 256,256 5.737,0 11.424,-0.208 17.067,-0.579 C 139.642,502.636 34.133,391.648 34.133,256 Z"
+             style="fill:#3298ba;stroke-width:15.42740822"
+             inkscape:connector-curvature="0" />
+          <path
+             id="path280-5"
+             d="m 380.263,109.054 c -2.486,-1.69 -5.676,-1.946 -8.399,-0.679 L 96.777,236.433 c -4.833,2.251 -7.887,7.172 -7.766,12.501 0.117,5.226 3.28,9.92 8.065,12.015 l 253.613,110.457 c 8.468,3.849 18.439,-2.21 18.983,-11.453 l 14.314,-243.341 c 0.175,-2.998 -1.238,-5.87 -3.723,-7.558 z"
+             style="fill:#e5e5e5;stroke-width:15.42740822"
+             inkscape:connector-curvature="0" />
+          <polygon
+             id="polygon282-3"
+             points="171.631,293.421 188.772,408 379.168,108.432 "
+             style="fill:#cccccc;stroke-width:15.42740822" />
+          <path
+             id="path284-5"
+             d="M 371.866,108.375 96.777,236.433 c -4.737,2.205 -7.826,7.121 -7.769,12.345 0.058,5.233 3.276,10.074 8.067,12.171 l 74.557,32.471 207.536,-184.988 c -2.286,-1.102 -4.965,-1.145 -7.302,-0.057 z"
+             style="fill:#ffffff;stroke-width:15.42740822"
+             inkscape:connector-curvature="0" />
+          <polygon
+             id="polygon286-6"
+             points="211.418,310.749 188.772,408 379.168,108.432 "
+             style="fill:#e5e5e5;stroke-width:15.42740822" />
+          <path
+             id="path288-2"
+             d="m 380.263,109.054 c -0.351,-0.239 -0.72,-0.442 -1.095,-0.622 l -167.75,202.317 139.27,60.657 c 8.468,3.849 18.439,-2.21 18.983,-11.453 l 14.314,-243.341 c 0.176,-2.998 -1.237,-5.87 -3.722,-7.558 z"
+             style="fill:#ffffff;stroke-width:15.42740822"
+             inkscape:connector-curvature="0" />
+          <g
+             id="g290-9"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g292-1"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g294-2"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g296-7"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g298-0"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g300-9"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g302-3"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g304-6"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g306-0"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g308-6"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g310-2"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g312-6"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g314-1"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g316-8"
+             style="stroke-width:15.42740822" />
+          <g
+             id="g318-7"
+             style="stroke-width:15.42740822" />
+        </g>
+      </g>
+      <text
+         id="text1880-7-9"
+         y="281.4903"
+         x="159.32619"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="stroke-width:0.26458332"
+           y="281.4903"
+           x="159.32619"
+           id="tspan1878-5-2"
+           sodipodi:role="line">User via</tspan><tspan
+           id="tspan1282"
+           style="stroke-width:0.26458332"
+           y="291.19168"
+           x="159.32619"
+           sodipodi:role="line">Telegram App</tspan></text>
+    </g>
+    <path
+       style="display:inline;opacity:1;fill:none;stroke:#0044aa;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.00000002, 4.00000004;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 147.20738,246.68503 v 23.73651"
+       id="path1514-2-3-2"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
   </g>
