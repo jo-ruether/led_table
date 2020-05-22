@@ -47,6 +47,28 @@ Both input classes publish input events via the Postman.
 # Developer's Guide
 In general, the python PIP guidelines are followed.
 
+## Necessary Packages
+* Pillow:
+`conda install -c anaconda pillow` or
+`pip install Pillow`
+
+* NeoPixel:
+`pip install adafruit-circuitpython-neopixel` or
+
+* OpenCV:
+`conda install -c conda-forge opencv` or
+`pip install opencv`
+
+* Spotipy:
+`pip install spotipy`
+
+* Telegram Python Bot:
+`pip install python-telegram-bot` 
+
+If you use conda, you can create an environment with all the necessary packages using the `environment.yml` file:  
+`conda env create -f environment.yml`
+
+
 ## Naming convention
 Use under_score_names, not CamelCase.
 
