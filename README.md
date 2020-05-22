@@ -4,7 +4,8 @@ This repository contains software to drive games and apps on a 12x12 Matrix of W
 2. [Project description](#project-description)
    * [Hardware architecture](#hardware-architecture)
    * [Software architecture](#software-architecture)
-3. [Developer's Guide](#developers-guide)
+3. [Setup](#setup)
+4. [Developer's Guide](#developers-guide)
 
 ## Features
 * Control the table either via a **TelegramBot** or a **USB Gamepad** 
@@ -44,30 +45,36 @@ Currently there are two ways of receiving user input. Either a game controller c
 
 Both input classes publish input events via the Postman.
 
-# Developer's Guide
-In general, the python PIP guidelines are followed.
+# Setup
 
 ## Necessary Packages
 * Pillow:
 `conda install -c anaconda pillow` or
 `pip install Pillow`
-
 * NeoPixel:
-`pip install adafruit-circuitpython-neopixel` or
-
+`pip install adafruit-circuitpython-neopixel`
 * OpenCV:
 `conda install -c conda-forge opencv` or
 `pip install opencv`
-
 * Spotipy:
 `pip install spotipy`
-
 * Telegram Python Bot:
 `pip install python-telegram-bot` 
 
 If you use conda, you can create an environment with all the necessary packages using the `environment.yml` file:  
 `conda env create -f environment.yml`
 
+## Setting up the Telegram Bot
+Create a new Telegram bot using the Telegram's [BotFather](https://core.telegram.org/bots#6-botfather). It provides you with an individual token that allows you to access messages that are sent to it. In order to control the LED matrix using this bot, insert the token into the config file. In Telegram, address the bot by the handle that you chose at bot creation to send it commands.
+
+## Setting up the Spotify Connection
+In order to use the spotify functionality, create a spotify web app using the [developer dashboard](https://developer.spotify.com/dashboard/login). Insert the provided client id and the client secret into the config file.  In the settings of your newly created app, add a redirect URI such as `https://www.google.com` and paste it into the config file.  
+At first use of the Spotify app on the table, users click a link and login to their Spotify account. After pressing "Authenticate", they get redirected to the specified URI and an authentication code appended to it. Users are asked to paste this URI with the included code into the bot, allowing the table to interact with Spotify on the user's behalf.
+
+## Setting up the USB Gamepad
+
+# Developer's Guide
+In general, the python PIP guidelines are followed.
 
 ## Naming convention
 Use under_score_names, not CamelCase.
