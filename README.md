@@ -1,4 +1,4 @@
-**In this repository you find the software running our self-build LED table.**
+**In this repository you find the software running our self-built LED table.**
 
 1. [Features](#features)
 2. [Project description](#project-description)
@@ -10,10 +10,10 @@
 * Control the table either via a **TelegramBot** or a **USB Gamepad** 
 * **Ready-to-use simulator** makes development possible even when your table isn't built yet 
 * **Spotify Connect integration** to display album art of currently played song on the table
-* Display an awesome good-looking **clock**.
+* Display an awesome-looking **clock**.
 * Color your  life with **ColorFade**. A simple screen saver.
 * Play **Tetris**. Perfectly fit every block.
-* Play **Snake**. Eat as many fruits as you can without eating yourself.
+* Play **Snake**. Eat as much fruit as you can without eating yourself.
 
 # Project description
 ## Hardware architecture
@@ -23,12 +23,12 @@ A [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w
 
 
 ## Software architecture
-There are the different kind of classes making up the software as a whole. Each program part has its own function and (exluding the *Helpers*) each part can be (de-)activated separately. `main.py` starts up to three threads and creates the helper classes.
+There are different kinds of classes making up the software as a whole. Each program part has its own function and each part can be (de-)activated separately (excluding the *Helpers*). `main.py` starts up to three threads and creates the helper classes.
 
 ![Sotware architecture](./img/software_architecture.svg)
 
 ### Application
-The main thread executing the games has its entry point in `Menu.py`. Besides printing the game's icons the Menu class also starts all other games and then waits for their return. The application thread is mainly manipulating the output matrix.
+The main thread executing the games has its entry point in `Menu.py`. Besides printing the game's icons, the Menu class also starts all other games and then waits for their return. The application thread is mainly manipulating the output matrix.
 
 ### Helpers
 The *Helpers* are part of the `core` module and simply class instances passed to the threads. Note that there are no threads wrapping the *Helpers*.
