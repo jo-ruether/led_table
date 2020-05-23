@@ -15,7 +15,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-   sodipodi:docname="hardware_architecture.svg">
+   sodipodi:docname="hardware_architecture.svg"
+   inkscape:export-filename="/home/asarin/projects/table/img/hardware_architecture.png"
+   inkscape:export-xdpi="39.659981"
+   inkscape:export-ydpi="39.659981">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -26,15 +29,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.9899495"
-     inkscape:cx="882.01514"
+     inkscape:cx="701.70291"
      inkscape:cy="91.69697"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1884"
-     inkscape:window-height="1052"
-     inkscape:window-x="36"
-     inkscape:window-y="0"
+     inkscape:window-width="733"
+     inkscape:window-height="412"
+     inkscape:window-x="253"
+     inkscape:window-y="705"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata5">
@@ -575,7 +578,7 @@
            id="path280" />
         <polygon
            style="fill:#cccccc;stroke-width:6.34724998"
-           points="379.168,108.432 171.631,293.421 188.772,408 "
+           points="171.631,293.421 188.772,408 379.168,108.432 "
            id="polygon282" />
         <path
            inkscape:connector-curvature="0"
@@ -584,7 +587,7 @@
            id="path284" />
         <polygon
            style="fill:#e5e5e5;stroke-width:6.34724998"
-           points="379.168,108.432 211.418,310.749 188.772,408 "
+           points="211.418,310.749 188.772,408 379.168,108.432 "
            id="polygon286" />
         <path
            inkscape:connector-curvature="0"
@@ -688,7 +691,7 @@
              inkscape:connector-curvature="0" />
           <polygon
              id="polygon282-3"
-             points="171.631,293.421 188.772,408 379.168,108.432 "
+             points="188.772,408 379.168,108.432 171.631,293.421 "
              style="fill:#cccccc;stroke-width:15.42740822" />
           <path
              id="path284-5"
@@ -697,7 +700,7 @@
              inkscape:connector-curvature="0" />
           <polygon
              id="polygon286-6"
-             points="211.418,310.749 188.772,408 379.168,108.432 "
+             points="188.772,408 379.168,108.432 211.418,310.749 "
              style="fill:#e5e5e5;stroke-width:15.42740822" />
           <path
              id="path288-2"

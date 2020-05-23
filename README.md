@@ -1,9 +1,12 @@
 This repository contains software to drive games and apps on a 12x12 Matrix of WS2812B-LEDs. It handles different inputs such as USB hardware or Telegram bots and displays the output on a real LED matrix or a simulation.
 
+![LED Table with controller](./img/total_with_controller.jpg)
+
 1. [Features](#features)
 2. [Project description](#project-description)
    * [Hardware architecture](#hardware-architecture)
    * [Software architecture](#software-architecture)
+   * [Games and programs](#games-and-programs)
 3. [Setup](#setup)
 4. [Developer's Guide](#developers-guide)
 
@@ -20,13 +23,13 @@ This repository contains software to drive games and apps on a 12x12 Matrix of W
 ## Hardware architecture
 A [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/) is used to control the table and to manage user interactions. The small single-board computer with a footprint of only 65mm x 35mm lets you hide the control unit in a small box unobtrusively attached to the table. Despite of its size it features a fully functional Linux system perfectly fitted for Python scripts while providing necessary interfaces like wireless LAN and USB.
 
-![Hardware architecture](./img/hardware_architecture.svg)
+![Hardware architecture](./img/hardware_architecture.png)
 
 
 ## Software architecture
 There are different kinds of classes making up the software as a whole. Each program part has its own function and each part can be (de-)activated separately (excluding `core`). `main.py` starts up to three threads and creates the instances of the core classes.
 
-![Sotware architecture](./img/software_architecture.svg)
+![Sotware architecture](./img/software_architecture.png)
 
 ### Application
 The main thread executing the games has its entry point in `Menu.py`. Besides printing the game's icons, the Menu class also starts all other games and then waits for their return. The application thread is mainly manipulating the output matrix.
@@ -44,6 +47,40 @@ The **Output** is a intermediate layer for writing Pixels to the table. There ar
 Currently there are two ways of receiving user input. Either a game controller can be attached to the Pi via USB or commands can be send to the table via Telegram. Just call the TelegramBot running on your table (every table needs its own Bot id) and he/she/it will explain everything to you.
 
 Both input classes publish input events via the Postman.
+
+## Games and programs
+### Menu
+The menu is indicated by a orange frame.
+![](./img/menu.jpg)
+
+### Colorfade
+Enjoy the diversity of the world with a relaxing color play. The whole bandwidth of the HGB color wheel is cycled periodically. The speed can be set via the speed setting (surprise!).
+
+Colorfade ...             |  ... in action
+:-------------------------:|:-------------------------:
+![](./img/colorfade.jpg)  |  ![](./img/colorfade.gif)
+
+
+### Spotify
+The table can display the cover art of the currently played song in a down-sampled version. However, music experts are still expected to recognize every song.
+
+Moreover, Spotify playback can be controlled via user input, e.g. play, pause, next and previous track.
+
+Spotify ...             |  ... in action
+:-------------------------:|:-------------------------:
+![](./img/spotify.jpg)  |  ![](./img/spotify.gif)
+
+### Pong
+![](./img/pong.gif)
+
+### Clock
+![](./img/clock.jpg)
+
+### Tetris
+Spotify ...             |  ... in action
+:-------------------------:|:-------------------------:
+![](./img/tetris.jpg)  |  ![](./img/tetris.gif)
+
 
 # Setup
 
