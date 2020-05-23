@@ -1,6 +1,5 @@
+# LED Table
 This repository contains software to drive games and apps on a 12x12 Matrix of WS2812B-LEDs. It handles different inputs such as USB hardware or Telegram bots and displays the output on a real LED matrix or a simulation.
-
-![LED Table with controller](./img/total_with_controller.jpg)
 
 1. [Features](#features)
 2. [Project description](#project-description)
@@ -10,7 +9,9 @@ This repository contains software to drive games and apps on a 12x12 Matrix of W
 3. [Setup](#setup)
 4. [Developer's Guide](#developers-guide)
 
-## Features
+![LED Table with controller](./img/total_with_controller.jpg)
+
+# Features
 * Control the table either via a **TelegramBot** or a **USB Gamepad** 
 * **Ready-to-use simulator** makes development possible even when your table isn't built yet 
 * **Spotify Connect integration** to display album art of currently played song on the table
@@ -24,7 +25,6 @@ This repository contains software to drive games and apps on a 12x12 Matrix of W
 A [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/) is used to control the table and to manage user interactions. The small single-board computer with a footprint of only 65mm x 35mm lets you hide the control unit in a small box unobtrusively attached to the table. Despite of its size it features a fully functional Linux system perfectly fitted for Python scripts while providing necessary interfaces like wireless LAN and USB.
 
 ![Hardware architecture](./img/hardware_architecture.png)
-
 
 ## Software architecture
 There are different kinds of classes making up the software as a whole. Each program part has its own function and each part can be (de-)activated separately (excluding `core`). `main.py` starts up to three threads and creates the instances of the core classes.
@@ -54,33 +54,13 @@ The menu is indicated by a orange frame.
 
 ![](./img/menu.jpg)
 
-### Colorfade
-Enjoy the diversity of the world with a relaxing color play. The whole bandwidth of the HGB color wheel is cycled periodically. The speed can be set via the speed setting (surprise!).
-
-Colorfade ...             |  ... in action
-:-------------------------:|:-------------------------:
-![](./img/colorfade.jpg)  |  ![](./img/colorfade.gif)
-
-
 ### Spotify
-The table can display the cover art of the currently played song in a down-sampled version. However, music experts are still expected to recognize every song.
 
-Moreover, Spotify playback can be controlled via user input, e.g. play, pause, next and previous track.
-
-Spotify ...             |  ... in action
-:-------------------------:|:-------------------------:
-![](./img/spotify.jpg)  |  ![](./img/spotify.gif)
-
-### Pong
-![](./img/pong.gif)
-
-### Clock
-![](./img/clock.jpg)
-
-### Tetris
-Spotify ...             |  ... in action
-:-------------------------:|:-------------------------:
-![](./img/tetris.jpg)  |  ![](./img/tetris.gif)
+Spotify                 | Pong
+:----------------------:|:-------------------------:
+![](./img/spotify.gif)  |  ![](./img/pong.gif)
+**Clock**               | **Tetris**
+![](./img/clock.jpg)    | ![](./img/tetris.gif)
 
 
 # Setup
@@ -111,9 +91,24 @@ In order to use the spotify functionality, create a spotify web app using the [d
 At first use of the Spotify app on the table, users click a link and login to their Spotify account. After pressing "Authenticate", they get redirected to the specified URI and an authentication code appended to it. Users are asked to paste this URI with the included code into the bot, allowing the table to interact with Spotify on the user's behalf.
 
 ## Setting up the USB Gamepad
+The hardware address of the controller should be persistent (using udev rules). Then, usb input can be enabled via the settings file. The necessary keys are already part of the config template `config_sample.json`.
+
+### How to make usb address persistent 
+1. Plug in USB device
+2. Collect information about device
+   * Find device in `lsusb`
+   * Gather more information with `sudo lsusb -vs <BUS>:<DEVICE>`, for example `sudo lsusb -vs 002:017`
+   * Best suited for udev rules are idVendor, idProduct and iSerial (if available) For the USB SNES Gamepad I find:
+     * idVendor     0x0810 Personal Communication Systems, Inc.
+     * idProduct	0xe501 SNES Gamepad
+3. Write udev rules with root editor in `/etc/udev/rules.d/`
+   * Use comments and prefer a high-numbered file name, for example `73-gamepad.rules`
+   * Write udev rules. `SUBSYSTEM=="input", ATTRS{idProduct}=="e501", ATTRS{idVendor}=="0810", SYMLINK+="gamepad", OWNER="<USERNAME>"`
+     
+**Notes:** It may happen that the user doesn't have read access on the created symlink. If that happens, add the OWNER attribute. For debugging you can use `sudo udevadm test /sys/class/input/eventX`.
 
 # Developer's Guide
-In general, the python PIP guidelines are followed.
+The python PIP guidelines are followed.
 
 ## Naming convention
 Use under_score_names, not CamelCase.
