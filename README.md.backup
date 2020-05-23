@@ -49,20 +49,14 @@ Currently there are two ways of receiving user input. Either a game controller c
 Both input classes publish input events via the Postman.
 
 ## Games and programs
-### Menu
-The menu is indicated by a orange frame.
-
-![](./img/menu.jpg)
-
-### Spotify
 
 Spotify                 | Pong
 :----------------------:|:-------------------------:
 ![](./img/spotify.gif)  |  ![](./img/pong.gif)
 **Clock**               | **Tetris**
 ![](./img/clock.jpg)    | ![](./img/tetris.gif)
-**Snake**               | 
-![](./img/snake.gif)    |
+**Snake**               | Colorfade
+![](./img/snake.gif)    | ![](./img/colorfade.gif)
 
 
 # Setup

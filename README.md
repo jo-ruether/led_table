@@ -21,6 +21,16 @@ This repository contains software to drive games and apps on a 12x12 Matrix of W
 * Play **Snake**. Eat as much fruit as you can without eating yourself.
 
 # Project description
+## Games and programs
+
+Spotify                 | Pong
+:----------------------:|:-------------------------:
+![](./img/spotify.gif)  |  ![](./img/pong.gif)
+**Clock**               | **Tetris**
+![](./img/clock.jpg)    | ![](./img/tetris.gif)
+**Snake**               | Colorfade
+![](./img/snake.gif)    | ![](./img/colorfade.gif)
+
 ## Hardware architecture
 A [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/) is used to control the table and to manage user interactions. The small single-board computer with a footprint of only 65mm x 35mm lets you hide the control unit in a small box unobtrusively attached to the table. Despite of its size it features a fully functional Linux system perfectly fitted for Python scripts while providing necessary interfaces like wireless LAN and USB.
 
@@ -48,21 +58,7 @@ Currently there are two ways of receiving user input. Either a game controller c
 
 Both input classes publish input events via the Postman.
 
-## Games and programs
-### Menu
-The menu is indicated by a orange frame.
 
-![](./img/menu.jpg)
-
-### Spotify
-
-Spotify                 | Pong
-:----------------------:|:-------------------------:
-![](./img/spotify.gif)  |  ![](./img/pong.gif)
-**Clock**               | **Tetris**
-![](./img/clock.jpg)    | ![](./img/tetris.gif)
-**Snake**               | Colorfade
-![](./img/snake.gif)    | ![](./img/colorfade.gif)
 
 
 # Setup
