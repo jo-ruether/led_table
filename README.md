@@ -61,6 +61,8 @@ Spotify                 | Pong
 ![](./img/spotify.gif)  |  ![](./img/pong.gif)
 **Clock**               | **Tetris**
 ![](./img/clock.jpg)    | ![](./img/tetris.gif)
+**Snake**               | Colorfade
+![](./img/snake.gif)    | ![](./img/colorfade.gif)
 
 
 # Setup
