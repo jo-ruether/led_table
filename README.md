@@ -51,6 +51,7 @@ Both input classes publish input events via the Postman.
 ## Games and programs
 ### Menu
 The menu is indicated by a orange frame.
+
 ![](./img/menu.jpg)
 
 ### Colorfade
