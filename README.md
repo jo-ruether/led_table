@@ -24,15 +24,15 @@ A [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w
 
 
 ## Software architecture
-There are different kinds of classes making up the software as a whole. Each program part has its own function and each part can be (de-)activated separately (excluding the *Helpers*). `main.py` starts up to three threads and creates the helper classes.
+There are different kinds of classes making up the software as a whole. Each program part has its own function and each part can be (de-)activated separately (excluding `core`). `main.py` starts up to three threads and creates the instances of the core classes.
 
 ![Sotware architecture](./img/software_architecture.svg)
 
 ### Application
 The main thread executing the games has its entry point in `Menu.py`. Besides printing the game's icons, the Menu class also starts all other games and then waits for their return. The application thread is mainly manipulating the output matrix.
 
-### Helpers
-The *Helpers* are part of the `core` module and simply class instances passed to the threads. Note that there are no threads wrapping the *Helpers*.
+### Core
+The `core` modules are simply class instances passed to the threads. Note that there are no threads wrapping the core modules.
 
 The **Postman** handles the communcation between the threads.
 
@@ -47,7 +47,8 @@ Both input classes publish input events via the Postman.
 
 # Setup
 
-## Necessary Packages
+## Dependencies
+* Python 3.6+
 * Pillow:
 `conda install -c anaconda pillow` or
 `pip install Pillow`
