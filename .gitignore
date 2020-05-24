@@ -29,6 +29,6 @@ table/test.ipynb
 .floo
 .flooignore
 
-table/.cache-arjun-de
+table/.cache-*
 
 *.ipynb
