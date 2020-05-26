@@ -141,11 +141,24 @@ class Spotify(Game):
         old_cover = self.cover
 
         for i in range(steps):
-            alpha = i/steps
-            self.cover = old_cover * (1.0 - alpha) + new_cover * alpha
+            sigma = 0.075*(1-i/steps)
+            random_factor = np.random.normal(loc=1,
+                                             scale=sigma,
+                                             size=(self.output.rows, self.output.columns, 3))
+            alpha_matrix = i/steps * np.multiply(np.ones([self.output.rows, self.output.columns, 3]),
+                                                 random_factor)
+            old_cover_share = np.multiply(np.ones([self.output.rows,
+                                                   self.output.columns,
+                                                   3]) - alpha_matrix,
+                                          old_cover).astype(int)
+            new_cover_share = np.multiply(alpha_matrix, new_cover).astype(int)
+
+            self.cover = np.clip(old_cover_share + new_cover_share, 0, 255)
             self.print_cover()
 
             time.sleep(transition_time/steps)
+
+        self.cover = self.update_cover()
 
     def read_user_input(self):
         post = self.postman.request(Topics.INPUT)
