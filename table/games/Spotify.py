@@ -3,6 +3,7 @@ import requests
 import io
 from PIL import Image
 import numpy as np
+import time
 
 from games.Game import Game
 from core.Postman import Topics, CMD
@@ -24,16 +25,22 @@ class Spotify(Game):
         self.redirect_uri = "https://www.google.de"
         self.spotifyObject = None
 
+        self.cover = np.zeros([output.rows, output.columns, 3])
+
     def start(self):
         self.output.empty_matrix()
-
         self.spotifyObject = self.connect_to_spotify()
-
         self.postman.send(Topics.OUTPUT, "I am connected to Spotify now. Let's listen to some "
                                          "awesome tunes. 🎵")
 
         self.running = True
         while self.running:
+            new_cover = self.update_cover()
+
+            if (new_cover != self.cover).any():
+                self.transition(new_cover)
+                self.cover = new_cover
+
             self.print_cover()
             self.read_user_input()
 
@@ -97,6 +104,11 @@ class Spotify(Game):
         return spotipy.Spotify(auth=token)
 
     def print_cover(self):
+
+        self.output.pixel_matrix = self.cover
+        self.output.show()
+
+    def update_cover(self):
         track = self.spotifyObject.current_user_playing_track()
 
         if track is not None:
@@ -106,14 +118,34 @@ class Spotify(Game):
                 # Sometime the API returns a NoneType when changing the track
                 # Just waiting for the next iterations is fine.
                 logger.debug("TypeError when retrieving album url.")
-                return
+
+                # Default image if no track is on. Change to something more interesting?
+                return np.zeros([self.output.rows, self.output.columns, 3])
 
             i = requests.get(cover_art_url)
             img = Image.open(io.BytesIO(i.content)).convert("RGB")
-            img = img.resize((12, 12), Image.ANTIALIAS)
+            return np.array(img.resize((self.output.rows, self.output.columns), Image.ANTIALIAS))
 
-            self.output.pixel_matrix = np.array(img)
-            self.output.show()
+        return np.zeros([self.output.rows, self.output.columns, 3])
+
+    def transition(self, new_cover):
+        """
+        Transitions from current self.cover to the new cover passed as argument.
+        Prints all visual in-between states on the way.
+
+        Returns:
+        """
+
+        transition_time = 1.5
+        steps = 50
+        old_cover = self.cover
+
+        for i in range(steps):
+            alpha = i/steps
+            self.cover = old_cover * (1.0 - alpha) + new_cover * alpha
+            self.print_cover()
+
+            time.sleep(transition_time/steps)
 
     def read_user_input(self):
         post = self.postman.request(Topics.INPUT)
