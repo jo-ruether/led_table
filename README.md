@@ -102,7 +102,8 @@ The hardware address of the controller should be persistent (using udev rules). 
 3. Write udev rules with root editor in `/etc/udev/rules.d/`
    * Use comments and prefer a high-numbered file name, for example `73-gamepad.rules`
    * Write udev rules. `SUBSYSTEM=="input", ATTRS{idProduct}=="e501", ATTRS{idVendor}=="0810", SYMLINK+="gamepad", OWNER="<USERNAME>"`
-     
+4. Unplug and reconnect the controller from the Pi. Now, you should find a device named `/dev/gamepad`. You can test it with `cat` or simply activate this controller address in the table's config. Have fun!
+
 **Notes:** It may happen that the user doesn't have read access on the created symlink. If that happens, add the OWNER attribute. For debugging you can use `sudo udevadm test /sys/class/input/eventX`.
 
 # Developer's Guide
